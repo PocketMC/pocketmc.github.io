@@ -1,920 +1,122 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Privacy &amp; Security Policy - PocketMC</title>
-        <meta name="description" content="Read the PocketMC Privacy and Security Policy. Learn about our local-first architecture, platform encryption, telemetry opt-out, and outbound connection disclosures." />
-        <link rel="canonical" href="https://pocketmc.github.io/privacy/" />
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="alternate" type="text/markdown" href="/llms.txt" title="PocketMC LLM Guide" />
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" href="../favicon.svg" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+		/>
+		<script>
+			const root = document.documentElement;
+			root.classList.add('js');
 
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+			try {
+				const stored = localStorage.getItem('theme');
+				if (stored === 'light' || stored === 'dark') {
+					root.dataset.theme = stored;
+				}
+			} catch {}
 
-        <script>
-            (() => {
-                try {
-                    const saved = localStorage.getItem("theme");
-                    if (saved === "light" || saved === "dark") {
-                        if (saved === "dark") document.documentElement.classList.add("dark");
-                        else document.documentElement.classList.remove("dark");
-                    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-                        document.documentElement.classList.add("dark");
-                    }
-                } catch (e) {}
-            })();
-        </script>
+			try {
+				const nav = performance.getEntriesByType('navigation')[0];
+				if (location.hash && (!nav || nav.type === 'reload')) {
+					history.replaceState(history.state, '', location.pathname + location.search);
+				}
+			} catch {}
 
-        <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            "@id": "https://pocketmc.github.io/privacy/#page",
-            "url": "https://pocketmc.github.io/privacy/",
-            "name": "PocketMC Privacy & Security Policy",
-            "description": "Privacy commitments, data boundaries, and security disclosures for PocketMC.",
-            "publisher": {
-                "@type": "Organization",
-                "name": "PocketMC",
-                "alternateName": "PocketMC Project",
-                "url": "https://pocketmc.github.io/",
-                "logo": "https://pocketmc.github.io/logo.webp",
-                "contactPoint": {
-                    "@type": "ContactPoint",
-                    "contactType": "security",
-                    "email": "contactdslabs@gmail.com"
-                }
-            }
-        }
-        </script>
+			addEventListener('beforeunload', () => scrollTo(0, 0));
 
-        <style>
-            :root {
-                --base: #fafafa;
-                --base-card: #ffffff;
-                --base-muted: #f4f4f5;
-                --main: #09090b;
-                --main-muted: #71717a;
-                --divider: rgba(9, 9, 11, 0.08);
-                --accent: #09090b;
-                --accent-hover: #27272a;
-                --accent-text: #ffffff;
-                --glow: rgba(0, 0, 0, 0.03);
-                --border: rgba(9, 9, 11, 0.08);
-                --card-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
-                --card-shadow-hover: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
-            }
-            html.dark {
-                --base: #000000;
-                --base-card: #111113;
-                --base-muted: #1c1c1f;
-                --main: #f4f4f5;
-                --main-muted: #a1a1aa;
-                --divider: rgba(255, 255, 255, 0.08);
-                --accent: #ffffff;
-                --accent-hover: #e4e4e7;
-                --accent-text: #09090b;
-                --glow: rgba(255, 255, 255, 0.03);
-                --border: rgba(255, 255, 255, 0.08);
-                --card-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px -1px rgba(0, 0, 0, 0.2);
-                --card-shadow-hover: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
-            }
+			const settled = () => root.classList.add('fonts');
 
-            * { box-sizing: border-box; margin: 0; padding: 0; }
-            body {
-                background-color: var(--base);
-                color: var(--main);
-                font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-                line-height: 1.6;
-                transition: background-color 0.2s ease, color 0.2s ease;
-                -webkit-font-smoothing: antialiased;
-            }
+			if (document.fonts) {
+				document.fonts.ready.then(settled);
+				setTimeout(settled, 900);
+			} else {
+				settled();
+			}
+		</script>
+		<link href="../_app/immutable/entry/start.Ky_BwO1X.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/DegIvrlX.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/DXlPIeNd.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/Ca1cr6g6.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/wLZXzzn-.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/BcX6dVrO.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/-UyI9lYi.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/C2-g8qjk.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/B0XwC4Ot.js" rel="modulepreload">
+		<link href="../_app/immutable/entry/app.Y3TEo8Fc.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/Bzak7iHL.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/ldDpiIfT.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/CDy4NSHO.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/BG0lQ1nD.js" rel="modulepreload">
+		<link href="../_app/immutable/nodes/0.BksakLJB.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/B00CmvBa.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/CynDSgQa.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/CUtU19fk.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/CtD-gXTd.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/DWgGYrAr.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/HiPkiPc1.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/Cw4xakxo.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/BSxVTRTI.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/esalcsm6.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/X3JyJcHJ.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/zd_LW5dR.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/iQSyCmUd.js" rel="modulepreload">
+		<link href="../_app/immutable/nodes/22.Dq8Q3R3J.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/ClmE1Ip3.js" rel="modulepreload">
+		<!--7ke6fz--><meta name="description" content="PocketMC operates under a strict local-first philosophy. Your server files, worlds, credentials, and settings live on your own hardware."/><!----><title>Privacy &amp; Security Policy · PocketMC</title>
+		<link href="../_app/immutable/assets/Logo.LYB8j-fg.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/Mark.3YGEcTDu.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/0.C2_ULjEV.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/22.ChGEtdge.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/prose.pMazzjsb.css" rel="stylesheet">
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents"><!--[--><!--[0--><!--[--><div class="slot svelte-a8kxe2"></div> <header class="svelte-a8kxe2"><div class="bar svelte-a8kxe2"><div class="left svelte-a8kxe2"><a href="/#top" class="brand svelte-a8kxe2"><img src="/logo.webp" alt="PocketMC" width="22" height="22" class="logo-img svelte-1l8nvlt" style="width: 22px; height: 22px;"/><!----> <span>PocketMC</span></a> <nav class="svelte-a8kxe2"><!--[--><a href="/#steps" class="svelte-a8kxe2">Install</a><a href="/#about" class="svelte-a8kxe2">Features</a><a href="/#tour" class="svelte-a8kxe2">Showcase</a><a href="/#softwares" class="svelte-a8kxe2">Softwares</a><a href="/#comparison" class="svelte-a8kxe2">Comparison</a><a href="/docs" class="svelte-a8kxe2">Docs</a><a href="/faq" class="svelte-a8kxe2">FAQ</a><a href="/about" class="svelte-a8kxe2">About</a><a href="/contact" class="svelte-a8kxe2">Contact</a><!--]--></nav></div> <div class="right svelte-a8kxe2"><div class="switch svelte-mls84d"><!--[--><button title="System" aria-label="System" aria-pressed="true" class="svelte-mls84d on"><!--[0--><svg viewBox="0 0 24 24" aria-hidden="true" class="svelte-mls84d"><rect x="3" y="4" width="18" height="12" rx="2"></rect><path d="M8 20h8"></path></svg><!--]--></button><button title="Light" aria-label="Light" aria-pressed="false" class="svelte-mls84d"><!--[1--><svg viewBox="0 0 24 24" aria-hidden="true" class="svelte-mls84d"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="M4.9 4.9l1.4 1.4"></path><path d="M17.7 17.7l1.4 1.4"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="M4.9 19.1l1.4-1.4"></path><path d="M17.7 6.3l1.4-1.4"></path></svg><!--]--></button><button title="Dark" aria-label="Dark" aria-pressed="false" class="svelte-mls84d"><!--[-1--><svg viewBox="0 0 24 24" aria-hidden="true" class="svelte-mls84d"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"></path></svg><!--]--></button><!--]--></div><!----> <a href="https://github.com/PocketMC/pocket-mc-windows" class="star svelte-a8kxe2" target="_blank" rel="noopener noreferrer"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="svelte-1mi20zr"><!----><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" /><!----></svg><!----> GitHub <!--[0--><span class="count svelte-a8kxe2">32</span><!--]--></a> <a href="/#steps" class="download svelte-a8kxe2">Install</a> <button type="button" class="toggle svelte-a8kxe2" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><svg viewBox="0 0 24 24" aria-hidden="true" class="svelte-a8kxe2"><!--[-1--><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path><!--]--></svg></button></div></div> <!--[-1--><!--]--></header> <!--[-1--><!--]--><!----> <div class="page-column"><!--[-1--><!--[--><section class="section"><span class="cross start"></span> <span class="cross end"></span> <div class="page doc-container svelte-7ke6fz"><article class="prose svelte-7ke6fz"><span class="kicker">Legal</span> <h1>Privacy &amp; Security Policy</h1> <p class="summary">PocketMC operates under a strict local-first architecture. Your server files, worlds, credentials,
+				and configurations live exclusively on your personal hardware, never on remote commercial servers.</p> <h2 id="storage-and-encryption">Storage &amp; Local Encryption</h2> <p>All Minecraft world saves, player inventories, configuration files, terminal logs, and server databases
+				are stored locally on the disk folder you designate. No cloud synchronization or off-site transmission
+				occurs unless you explicitly authenticate and authorize a third-party cloud provider.</p> <p>On Windows, third-party credentials—including OAuth tokens for Google Drive, Dropbox, and OneDrive,
+				as well as remote dashboard administrative passwords—are encrypted via the <strong>Windows Data Protection API (DPAPI)</strong>.
+				These secrets are tied cryptographically to your Windows user account security identifier (SID) and cannot
+				be read by other user accounts on the machine.</p> <h2 id="network-and-tunneling">Network Traffic &amp; Tunneling</h2> <p>When you enable the integrated <strong>Playit.gg</strong> agent, server game packets are encrypted
+				and routed through Playit.gg's global edge infrastructure to allow friends to connect without port forwarding.
+				PocketMC does not inspect, store, or log player network traffic.</p> <h2 id="ai-diagnostics-privacy">AI Diagnostics &amp; Log Sanitization</h2> <p>PocketMC's optional AI Log Summary feature translates complex server logs and crash traces into
+				plain-English reports.</p> <ul><li><strong>Local Inference with Ollama:</strong> If you use local Ollama models, all processing takes place
+					100% on your machine with zero data leaving your hardware.</li> <li><strong>Cloud Providers:</strong> If you choose Google Gemini, OpenAI, Anthropic Claude, or Mistral,
+					PocketMC pre-processes and scrubs the log before transmission—automatically stripping player IP addresses,
+					email addresses, and sensitive tokens.</li></ul> <h2 id="telemetry">Telemetry &amp; Crash Reports</h2> <p>PocketMC does not sell, license, or monetize user data. Any optional, anonymous diagnostic signals
+				(such as application startup confirmation or error exceptions) are strictly non-identifiable and
+				can be toggled off at any time in Settings.</p></article></div></section><!--]--><!--]--><!----> <footer class="section"><span class="cross start"></span> <span class="cross end"></span> <div class="page svelte-4jwo3w"><div class="cols svelte-4jwo3w"><div class="about svelte-4jwo3w"><a href="/#top" class="brand svelte-4jwo3w"><img src="/logo.webp" alt="PocketMC" width="20" height="20" class="logo-img svelte-1l8nvlt" style="width: 20px; height: 20px;"/><!----> <span>PocketMC</span></a> <p class="svelte-4jwo3w">The local-first Minecraft server manager. Zero router setup, app-local Java provisioning,
+					and seamless cloud backups.</p></div> <div class="links svelte-4jwo3w"><div class="svelte-4jwo3w"><h3 class="svelte-4jwo3w">Site</h3> <a href="/#steps" class="svelte-4jwo3w">Install</a> <a href="/#about" class="svelte-4jwo3w">Features</a> <a href="/#tour" class="svelte-4jwo3w">Showcase</a> <a href="/#softwares" class="svelte-4jwo3w">Softwares</a> <a href="/#comparison" class="svelte-4jwo3w">Comparison</a> <a href="/docs" class="svelte-4jwo3w">Docs</a> <a href="/faq" class="svelte-4jwo3w">FAQ</a></div> <div class="svelte-4jwo3w"><h3 class="svelte-4jwo3w">Project</h3> <a href="https://github.com/PocketMC/pocket-mc-windows" target="_blank" rel="noopener noreferrer" class="svelte-4jwo3w">GitHub (Windows)</a> <a href="https://github.com/PocketMC/pocket-mc-linux-mac" target="_blank" rel="noopener noreferrer" class="svelte-4jwo3w">GitHub (Linux/Mac)</a> <a href="https://github.com/PocketMC/pocket-mc-website" target="_blank" rel="noopener noreferrer" class="svelte-4jwo3w">Website Source</a> <a href="/changelog" class="svelte-4jwo3w">Changelog</a> <a href="/about" class="svelte-4jwo3w">About Us</a> <a href="/contact" class="svelte-4jwo3w">Contact</a></div> <div class="svelte-4jwo3w"><h3 class="svelte-4jwo3w">Community</h3> <a href="https://discord.gg/mWdMr8Mc2m" target="_blank" rel="noopener noreferrer" class="svelte-4jwo3w">Discord Server</a> <a href="https://www.reddit.com/r/PocketMC/" target="_blank" rel="noopener noreferrer" class="svelte-4jwo3w">Reddit Community</a> <a href="https://www.youtube.com/@OfficialPocketMC" target="_blank" rel="noopener noreferrer" class="svelte-4jwo3w">YouTube Channel</a> <a href="https://www.buymeacoffee.com/sahaj33" target="_blank" rel="noopener noreferrer" class="svelte-4jwo3w">Support Creator</a> <a href="https://github.com/PocketMC/pocket-mc-windows/issues" target="_blank" rel="noopener noreferrer" class="svelte-4jwo3w">Report Issue</a></div> <div class="svelte-4jwo3w"><h3 class="svelte-4jwo3w">Legal</h3> <a href="/terms" class="svelte-4jwo3w">Terms of Service</a> <a href="/privacy" class="svelte-4jwo3w">Privacy Policy</a> <a href="https://github.com/PocketMC/pocket-mc-windows/blob/master/LICENSE" target="_blank" rel="noopener noreferrer" class="svelte-4jwo3w">License (GPL-3.0)</a> <a href="mailto:contactdslabs@gmail.com" class="svelte-4jwo3w">Security Contact</a></div></div></div> <div class="legal svelte-4jwo3w"><p class="svelte-4jwo3w">PocketMC is free and open-source software licensed under the GNU General Public License v3.0.
+				NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</p> <p class="svelte-4jwo3w">Minecraft is a trademark of Mojang Synergies AB. All other trademarks, product names, and company
+				logos referenced on this website are the property of their respective owners.</p></div></div></footer><!----></div><!--]--><!--]--> <!--[-1--><!--]--><!--]-->
+			<script type="application/json" data-sveltekit-fetched data-url="https://api.github.com/repos/PocketMC/pocket-mc-windows">{"status":200,"statusText":"OK","headers":{},"body":"{\"id\":1210393014,\"node_id\":\"R_kgDOSCUhtg\",\"name\":\"pocket-mc-windows\",\"full_name\":\"PocketMC/pocket-mc-windows\",\"private\":false,\"owner\":{\"login\":\"PocketMC\",\"id\":275979528,\"node_id\":\"O_kgDOEHMdCA\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/275979528?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/PocketMC\",\"html_url\":\"https://github.com/PocketMC\",\"followers_url\":\"https://api.github.com/users/PocketMC/followers\",\"following_url\":\"https://api.github.com/users/PocketMC/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/PocketMC/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/PocketMC/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/PocketMC/subscriptions\",\"organizations_url\":\"https://api.github.com/users/PocketMC/orgs\",\"repos_url\":\"https://api.github.com/users/PocketMC/repos\",\"events_url\":\"https://api.github.com/users/PocketMC/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/PocketMC/received_events\",\"type\":\"Organization\",\"user_view_type\":\"public\",\"site_admin\":false},\"html_url\":\"https://github.com/PocketMC/pocket-mc-windows\",\"description\":\"Windows desktop app to locally host and manage Minecraft Java and Bedrock Edition servers without any mess.\",\"fork\":false,\"url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows\",\"forks_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/forks\",\"keys_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/keys{/key_id}\",\"collaborators_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/collaborators{/collaborator}\",\"teams_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/teams\",\"hooks_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/hooks\",\"issue_events_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/issues/events{/number}\",\"events_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/events\",\"assignees_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/assignees{/user}\",\"branches_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/branches{/branch}\",\"tags_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/tags\",\"blobs_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/git/blobs{/sha}\",\"git_tags_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/git/tags{/sha}\",\"git_refs_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/git/refs{/sha}\",\"trees_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/git/trees{/sha}\",\"statuses_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/statuses/{sha}\",\"languages_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/languages\",\"stargazers_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/stargazers\",\"contributors_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/contributors\",\"subscribers_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/subscribers\",\"subscription_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/subscription\",\"commits_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/commits{/sha}\",\"git_commits_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/git/commits{/sha}\",\"comments_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/comments{/number}\",\"issue_comment_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/issues/comments{/number}\",\"contents_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/contents/{+path}\",\"compare_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/compare/{base}...{head}\",\"merges_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/merges\",\"archive_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/{archive_format}{/ref}\",\"downloads_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/downloads\",\"issues_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/issues{/number}\",\"pulls_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/pulls{/number}\",\"milestones_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/milestones{/number}\",\"notifications_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/notifications{?since,all,participating}\",\"labels_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/labels{/name}\",\"releases_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/releases{/id}\",\"deployments_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/deployments\",\"created_at\":\"2026-04-14T11:23:09Z\",\"updated_at\":\"2026-10-16T20:07:54Z\",\"pushed_at\":\"2026-10-16T10:19:54Z\",\"git_url\":\"git://github.com/PocketMC/pocket-mc-windows.git\",\"ssh_url\":\"git@github.com:PocketMC/pocket-mc-windows.git\",\"clone_url\":\"https://github.com/PocketMC/pocket-mc-windows.git\",\"svn_url\":\"https://github.com/PocketMC/pocket-mc-windows\",\"homepage\":\"https://pocketmc.github.io\",\"size\":173272,\"stargazers_count\":32,\"watchers_count\":32,\"language\":\"C#\",\"has_issues\":true,\"has_projects\":true,\"has_downloads\":false,\"has_wiki\":true,\"has_pages\":false,\"has_discussions\":true,\"forks_count\":4,\"mirror_url\":null,\"archived\":false,\"disabled\":false,\"open_issues_count\":3,\"license\":{\"key\":\"mit\",\"name\":\"MIT License\",\"spdx_id\":\"MIT\",\"url\":\"https://api.github.com/licenses/mit\",\"node_id\":\"MDc6TGljZW5zZTEz\"},\"allow_forking\":true,\"is_template\":false,\"web_commit_signoff_required\":false,\"has_pull_requests\":true,\"pull_request_creation_policy\":\"all\",\"topics\":[\"bedrock-dedicated-server\",\"dotnet\",\"fabricmc\",\"forge-server\",\"minecraft\",\"minecraft-server\",\"neoforge-server\",\"papermc\",\"playit\",\"server-manager\",\"windows\",\"wpf\"],\"visibility\":\"public\",\"forks\":4,\"open_issues\":3,\"watchers\":32,\"default_branch\":\"master\",\"temp_clone_token\":null,\"custom_properties\":{},\"organization\":{\"login\":\"PocketMC\",\"id\":275979528,\"node_id\":\"O_kgDOEHMdCA\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/275979528?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/PocketMC\",\"html_url\":\"https://github.com/PocketMC\",\"followers_url\":\"https://api.github.com/users/PocketMC/followers\",\"following_url\":\"https://api.github.com/users/PocketMC/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/PocketMC/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/PocketMC/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/PocketMC/subscriptions\",\"organizations_url\":\"https://api.github.com/users/PocketMC/orgs\",\"repos_url\":\"https://api.github.com/users/PocketMC/repos\",\"events_url\":\"https://api.github.com/users/PocketMC/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/PocketMC/received_events\",\"type\":\"Organization\",\"user_view_type\":\"public\",\"site_admin\":false},\"network_count\":4,\"subscribers_count\":4}"}</script>
+			<script type="application/json" data-sveltekit-fetched data-url="https://api.github.com/repos/PocketMC/pocket-mc-windows/releases/latest">{"status":200,"statusText":"OK","headers":{},"body":"{\"url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/releases/399956058\",\"assets_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/releases/399956058/assets\",\"upload_url\":\"https://uploads.github.com/repos/PocketMC/pocket-mc-windows/releases/399956058/assets{?name,label}\",\"html_url\":\"https://github.com/PocketMC/pocket-mc-windows/releases/tag/v1.9.10\",\"id\":399956058,\"author\":{\"login\":\"github-actions[bot]\",\"id\":41898282,\"node_id\":\"MDM6Qm90NDE4OTgyODI=\",\"avatar_url\":\"https://avatars.githubusercontent.com/in/15368?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/github-actions%5Bbot%5D\",\"html_url\":\"https://github.com/apps/github-actions\",\"followers_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/followers\",\"following_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/subscriptions\",\"organizations_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/orgs\",\"repos_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/repos\",\"events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/received_events\",\"type\":\"Bot\",\"user_view_type\":\"public\",\"site_admin\":false},\"node_id\":\"RE_kwDOSCUhts4X1tha\",\"tag_name\":\"v1.9.10\",\"target_commitish\":\"master\",\"name\":\"PocketMC v1.9.10\",\"draft\":false,\"immutable\":false,\"prerelease\":false,\"created_at\":\"2026-09-30T10:49:57Z\",\"updated_at\":\"2026-09-30T10:57:16Z\",\"published_at\":\"2026-09-30T10:57:16Z\",\"assets\":[{\"url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/releases/assets/600701865\",\"id\":600701865,\"node_id\":\"RA_kwDOSCUhts4jzfup\",\"name\":\"assets.win.json\",\"label\":\"\",\"uploader\":{\"login\":\"github-actions[bot]\",\"id\":41898282,\"node_id\":\"MDM6Qm90NDE4OTgyODI=\",\"avatar_url\":\"https://avatars.githubusercontent.com/in/15368?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/github-actions%5Bbot%5D\",\"html_url\":\"https://github.com/apps/github-actions\",\"followers_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/followers\",\"following_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/subscriptions\",\"organizations_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/orgs\",\"repos_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/repos\",\"events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/received_events\",\"type\":\"Bot\",\"user_view_type\":\"public\",\"site_admin\":false},\"content_type\":\"application/json\",\"state\":\"uploaded\",\"size\":263,\"digest\":\"sha256:3103e133daca00982c370cbbd0766df20bcf08171f949ff2e2993deb679e3cfa\",\"download_count\":6,\"created_at\":\"2026-09-30T10:57:13Z\",\"updated_at\":\"2026-09-30T10:57:13Z\",\"browser_download_url\":\"https://github.com/PocketMC/pocket-mc-windows/releases/download/v1.9.10/assets.win.json\"},{\"url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/releases/assets/600701869\",\"id\":600701869,\"node_id\":\"RA_kwDOSCUhts4jzfut\",\"name\":\"PocketMC-1.9.10-delta.nupkg\",\"label\":\"\",\"uploader\":{\"login\":\"github-actions[bot]\",\"id\":41898282,\"node_id\":\"MDM6Qm90NDE4OTgyODI=\",\"avatar_url\":\"https://avatars.githubusercontent.com/in/15368?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/github-actions%5Bbot%5D\",\"html_url\":\"https://github.com/apps/github-actions\",\"followers_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/followers\",\"following_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/subscriptions\",\"organizations_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/orgs\",\"repos_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/repos\",\"events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/received_events\",\"type\":\"Bot\",\"user_view_type\":\"public\",\"site_admin\":false},\"content_type\":\"application/octet-stream\",\"state\":\"uploaded\",\"size\":2655144,\"digest\":\"sha256:532a05b4abe1bc87a4411288e6d1773cd15cdd847fc10e8bc6d81f764de040d7\",\"download_count\":211,\"created_at\":\"2026-09-30T10:57:13Z\",\"updated_at\":\"2026-09-30T10:57:14Z\",\"browser_download_url\":\"https://github.com/PocketMC/pocket-mc-windows/releases/download/v1.9.10/PocketMC-1.9.10-delta.nupkg\"},{\"url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/releases/assets/600701871\",\"id\":600701871,\"node_id\":\"RA_kwDOSCUhts4jzfuv\",\"name\":\"PocketMC-1.9.10-full.nupkg\",\"label\":\"\",\"uploader\":{\"login\":\"github-actions[bot]\",\"id\":41898282,\"node_id\":\"MDM6Qm90NDE4OTgyODI=\",\"avatar_url\":\"https://avatars.githubusercontent.com/in/15368?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/github-actions%5Bbot%5D\",\"html_url\":\"https://github.com/apps/github-actions\",\"followers_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/followers\",\"following_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/subscriptions\",\"organizations_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/orgs\",\"repos_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/repos\",\"events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/received_events\",\"type\":\"Bot\",\"user_view_type\":\"public\",\"site_admin\":false},\"content_type\":\"application/octet-stream\",\"state\":\"uploaded\",\"size\":38563334,\"digest\":\"sha256:ebec330eae0de3755dc51a78b0a9d995dbac13fd4e2a5af0e257bbd7cce7039a\",\"download_count\":128,\"created_at\":\"2026-09-30T10:57:13Z\",\"updated_at\":\"2026-09-30T10:57:15Z\",\"browser_download_url\":\"https://github.com/PocketMC/pocket-mc-windows/releases/download/v1.9.10/PocketMC-1.9.10-full.nupkg\"},{\"url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/releases/assets/600701872\",\"id\":600701872,\"node_id\":\"RA_kwDOSCUhts4jzfuw\",\"name\":\"PocketMC-win-Portable.zip\",\"label\":\"\",\"uploader\":{\"login\":\"github-actions[bot]\",\"id\":41898282,\"node_id\":\"MDM6Qm90NDE4OTgyODI=\",\"avatar_url\":\"https://avatars.githubusercontent.com/in/15368?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/github-actions%5Bbot%5D\",\"html_url\":\"https://github.com/apps/github-actions\",\"followers_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/followers\",\"following_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/subscriptions\",\"organizations_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/orgs\",\"repos_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/repos\",\"events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/received_events\",\"type\":\"Bot\",\"user_view_type\":\"public\",\"site_admin\":false},\"content_type\":\"application/zip\",\"state\":\"uploaded\",\"size\":38486476,\"digest\":\"sha256:0032bf4af3e31af3181120e7d29253d49d2ff05eb5da3adf826dcc322ec61e49\",\"download_count\":18,\"created_at\":\"2026-09-30T10:57:13Z\",\"updated_at\":\"2026-09-30T10:57:15Z\",\"browser_download_url\":\"https://github.com/PocketMC/pocket-mc-windows/releases/download/v1.9.10/PocketMC-win-Portable.zip\"},{\"url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/releases/assets/600701868\",\"id\":600701868,\"node_id\":\"RA_kwDOSCUhts4jzfus\",\"name\":\"PocketMC-win-Setup.exe\",\"label\":\"\",\"uploader\":{\"login\":\"github-actions[bot]\",\"id\":41898282,\"node_id\":\"MDM6Qm90NDE4OTgyODI=\",\"avatar_url\":\"https://avatars.githubusercontent.com/in/15368?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/github-actions%5Bbot%5D\",\"html_url\":\"https://github.com/apps/github-actions\",\"followers_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/followers\",\"following_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/subscriptions\",\"organizations_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/orgs\",\"repos_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/repos\",\"events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/received_events\",\"type\":\"Bot\",\"user_view_type\":\"public\",\"site_admin\":false},\"content_type\":\"application/x-msdos-program\",\"state\":\"uploaded\",\"size\":46154246,\"digest\":\"sha256:f05bb2a0628b4ad32fa9254d7b0bde6ad64b3c94a0380b83bc31d2c12f4ff17a\",\"download_count\":492,\"created_at\":\"2026-09-30T10:57:13Z\",\"updated_at\":\"2026-09-30T10:57:15Z\",\"browser_download_url\":\"https://github.com/PocketMC/pocket-mc-windows/releases/download/v1.9.10/PocketMC-win-Setup.exe\"},{\"url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/releases/assets/600701870\",\"id\":600701870,\"node_id\":\"RA_kwDOSCUhts4jzfuu\",\"name\":\"RELEASES\",\"label\":\"\",\"uploader\":{\"login\":\"github-actions[bot]\",\"id\":41898282,\"node_id\":\"MDM6Qm90NDE4OTgyODI=\",\"avatar_url\":\"https://avatars.githubusercontent.com/in/15368?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/github-actions%5Bbot%5D\",\"html_url\":\"https://github.com/apps/github-actions\",\"followers_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/followers\",\"following_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/subscriptions\",\"organizations_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/orgs\",\"repos_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/repos\",\"events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/received_events\",\"type\":\"Bot\",\"user_view_type\":\"public\",\"site_admin\":false},\"content_type\":\"application/octet-stream\",\"state\":\"uploaded\",\"size\":155,\"digest\":\"sha256:b5664d6862f74c7fea4ab90d31aec493e90bc1589f71a26bfa39a067e4116ef8\",\"download_count\":10,\"created_at\":\"2026-09-30T10:57:13Z\",\"updated_at\":\"2026-09-30T10:57:13Z\",\"browser_download_url\":\"https://github.com/PocketMC/pocket-mc-windows/releases/download/v1.9.10/RELEASES\"},{\"url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/releases/assets/600701867\",\"id\":600701867,\"node_id\":\"RA_kwDOSCUhts4jzfur\",\"name\":\"releases.win.json\",\"label\":\"\",\"uploader\":{\"login\":\"github-actions[bot]\",\"id\":41898282,\"node_id\":\"MDM6Qm90NDE4OTgyODI=\",\"avatar_url\":\"https://avatars.githubusercontent.com/in/15368?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/github-actions%5Bbot%5D\",\"html_url\":\"https://github.com/apps/github-actions\",\"followers_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/followers\",\"following_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/subscriptions\",\"organizations_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/orgs\",\"repos_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/repos\",\"events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/received_events\",\"type\":\"Bot\",\"user_view_type\":\"public\",\"site_admin\":false},\"content_type\":\"application/json\",\"state\":\"uploaded\",\"size\":970,\"digest\":\"sha256:764017321632ad25300b39bf59d2318d11d56f7d8659fa00bb0c7d037c0ad98b\",\"download_count\":2340,\"created_at\":\"2026-09-30T10:57:13Z\",\"updated_at\":\"2026-09-30T10:57:13Z\",\"browser_download_url\":\"https://github.com/PocketMC/pocket-mc-windows/releases/download/v1.9.10/releases.win.json\"}],\"tarball_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/tarball/v1.9.10\",\"zipball_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/zipball/v1.9.10\",\"body\":\"### Summary\\r\\n\\r\\nv1.9.10 adds an in-app News page with cached announcements and unread popups, extends local Ollama model management, validates and repairs the Playit runtime, and migrates settings without replacing existing user preferences. It also corrects restoration of maximized windows.\\r\\n\\r\\n### Diff Basis\\r\\n\\r\\nCompared the `v1.9.9` tag (`216b174`) with candidate source commit `af12ea6`. Temporary news showcase files added during development were removed before this endpoint and are not included as release content.\\r\\n\\r\\n### Added\\r\\n\\r\\n- **Remote News page and notifications**\\r\\n  - Added a News page, native article renderer, and popup window for PocketMC announcements and service notices.\\r\\n  - Added background synchronization at startup and every six hours, plus manual refresh. Eligible news is cached under the PocketMC local-data directory and remains available offline.\\r\\n  - Added unread counts, local read acknowledgement, and metadata-controlled unread popups. Read state is written to the local cached article, not the repository copy.\\r\\n- **Remote News format and validation**\\r\\n  - Added a plain-text format with required metadata, version and expiry filters, and title, subtitle, heading, paragraph, list, warning, important, code, link, and divider content elements.\\r\\n  - Remote names, metadata, content size, download URLs, and Git blob hashes are checked before eligible articles are cached; HTML and executable content are not rendered or run.\\r\\n\\r\\n### Changed\\r\\n\\r\\n- **Ollama Model Manager**\\r\\n  - Reorganized local model management into Installed, Download, and Manual tabs.\\r\\n  - Added local model deletion through Ollama's `/api/delete` endpoint. Installed local models can be selected; recommended and custom model pulls show progress and can be canceled.\\r\\n  - Kept cloud model selection in App Settings and hid local download/manual-install controls in cloud mode.\\r\\n- **Settings persistence and migration**\\r\\n  - Added a version-3, sectioned camelCase `settings.json` representation while leaving the runtime `AppSettings` API and portable backup package version 1 unchanged.\\r\\n  - Kept PascalCase compatibility properties for released builds and a sectioned sidecar snapshot so known changes from older builds can be merged without discarding newer fields.\\r\\n  - Preserved unknown fields and protected credential payloads during conversion. DPAPI protection now leaves already protected v1/v2 payloads intact.\\r\\n  - Existing version-1 PocketMC backups remain restorable and are written through the current settings serializer. Future or malformed settings/backup formats are rejected or protected from overwrite rather than silently downgraded.\\r\\n\\r\\n### Fixed\\r\\n\\r\\n- **Appearance preservation during settings migration**\\r\\n  - One-time appearance flags are marked complete without replacing a completed user's saved backdrop, accent color, or wallpaper path with defaults.\\r\\n- **Maximized-window restoration**\\r\\n  - Deferred applying the saved maximized state until after the native window handle and sizing hook are installed. A saved maximized window is no longer restored as a large normal window when its saved dimensions match the work area.\\r\\n\\r\\n### Improved\\r\\n\\r\\n- **Playit runtime compatibility and repair**\\r\\n  - PocketMC checks the installed agent runtime during startup and before connection. It attempts to repair missing, corrupt, or unsupported copies before the agent starts; existing agent credentials are retained.\\r\\n  - Runtime replacement is staged and validated before promotion. The existing executable is backed up and restored if post-install verification fails.\\r\\n\\r\\n### Build & Release\\r\\n\\r\\n- Moved the Playit download URL and expected SHA-256 out of `pocketmc.yml` and `AppConfig` into `PlayitRuntimeManifest`, alongside the minimum supported version and platform filename. The application configuration no longer supplies a default release channel.\\r\\n\\r\\n### Tests\\r\\n\\r\\n- Added tests for News metadata/content parsing, remote synchronization and caching, and local read-state handling.\\r\\n- Added Ollama model API tests, including deletion and pull behavior, and Playit runtime compatibility and failed-download-preservation tests.\\r\\n- Expanded settings and credential tests for sectioned migration, legacy-build merging, future/corrupt format protection, backup restore, and idempotent DPAPI protection.\\r\\n\\r\\n### Documentation\\r\\n\\r\\n- Added a remote News publishing guide covering metadata, supported content, synchronization, cache, and read-state behavior; updated Playit runtime documentation.\\r\\n- Refreshed README feature descriptions, screenshots, and the demonstration video link.\"}"}</script>
+			<script>
+				{
+					__sveltekit_1qsgbeh = {
+						base: new URL("..", location).pathname.slice(0, -1)
+					};
 
-            .font-mono { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+					const element = document.currentScript.parentElement;
 
-            header {
-                position: sticky;
-                top: 0;
-                z-index: 50;
-                border-bottom: 1px solid var(--divider);
-                background-color: var(--base);
-                background-color: rgba(var(--base-rgb, 250, 250, 250), 0.9);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-            }
-            html.dark header {
-                background-color: rgba(0, 0, 0, 0.9);
-            }
-
-            .header-inner {
-                max-width: 1280px;
-                margin: 0 auto;
-                padding: 14px 24px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-            .brand {
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                text-decoration: none;
-                color: var(--main);
-            }
-            .brand img {
-                width: 30px;
-                height: 30px;
-                object-fit: contain;
-                border-radius: 6px;
-            }
-            .brand-name {
-                font-weight: 800;
-                font-size: 15px;
-                letter-spacing: -0.03em;
-                line-height: 1;
-            }
-            .brand-tag {
-                font-size: 11px;
-                color: var(--main-muted);
-                margin-top: 2px;
-                line-height: 1;
-            }
-
-            .header-nav {
-                display: flex;
-                align-items: center;
-                gap: 24px;
-            }
-            .nav-links {
-                display: none;
-                align-items: center;
-                gap: 20px;
-            }
-            @media (min-width: 768px) {
-                .nav-links { display: flex; }
-            }
-            .nav-link {
-                color: var(--main-muted);
-                text-decoration: none;
-                font-size: 12px;
-                font-weight: 500;
-                position: relative;
-                padding: 6px 2px;
-                transition: color 0.15s ease;
-            }
-            .nav-link:hover { color: var(--main); }
-            .nav-link.active {
-                color: var(--main);
-                font-weight: 700;
-            }
-            .nav-link.active::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                height: 2px;
-                background-color: var(--main);
-                border-radius: 9999px;
-            }
-
-            .header-actions {
-                display: flex;
-                align-items: center;
-                gap: 12px;
-            }
-            .theme-toggle {
-                background: var(--base-card);
-                border: 1px solid var(--divider);
-                color: var(--main);
-                width: 34px;
-                height: 34px;
-                border-radius: 8px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                transition: border-color 0.15s, background-color 0.15s;
-            }
-            .theme-toggle:hover {
-                border-color: var(--main);
-            }
-            .theme-toggle svg { width: 16px; height: 16px; }
-
-            .mobile-menu-btn {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background: var(--base-card);
-                border: 1px solid var(--divider);
-                color: var(--main);
-                width: 34px;
-                height: 34px;
-                border-radius: 8px;
-                cursor: pointer;
-            }
-            @media (min-width: 768px) {
-                .mobile-menu-btn { display: none; }
-            }
-
-            .mobile-drawer {
-                display: none;
-                border-bottom: 1px solid var(--divider);
-                background: var(--base-card);
-                padding: 16px 24px;
-            }
-            .mobile-drawer.open { display: block; }
-            .mobile-drawer a {
-                display: block;
-                padding: 10px 0;
-                color: var(--main-muted);
-                text-decoration: none;
-                font-size: 13px;
-                font-weight: 600;
-                border-bottom: 1px solid var(--divider);
-            }
-            .mobile-drawer a:last-child { border-bottom: none; }
-            .mobile-drawer a.active { color: var(--main); }
-
-            /* Main Layout */
-            .page-container {
-                max-width: 1280px;
-                margin: 0 auto;
-                padding: 48px 24px 80px;
-            }
-            @media (min-width: 768px) {
-                .page-container { padding: 64px 24px 100px; }
-            }
-
-            /* Hero Intro */
-            .hero-section {
-                max-width: 880px;
-                margin-bottom: 48px;
-            }
-            .badge {
-                display: inline-flex;
-                align-items: center;
-                gap: 6px;
-                font-size: 11px;
-                font-weight: 700;
-                letter-spacing: 0.05em;
-                text-transform: uppercase;
-                padding: 4px 10px;
-                border-radius: 6px;
-                border: 1px solid var(--divider);
-                background: var(--base-muted);
-                color: var(--main-muted);
-                margin-bottom: 20px;
-            }
-            .badge-dot {
-                width: 6px;
-                height: 6px;
-                border-radius: 50%;
-                background: var(--main);
-            }
-            h1 {
-                font-size: 36px;
-                font-weight: 900;
-                letter-spacing: -0.04em;
-                line-height: 1.15;
-                margin-bottom: 18px;
-                color: var(--main);
-            }
-            @media (min-width: 768px) {
-                h1 { font-size: 50px; }
-            }
-            .lead-text {
-                font-size: 17px;
-                line-height: 1.65;
-                color: var(--main-muted);
-                max-width: 820px;
-            }
-
-            /* Quick Spec Bar */
-            .specs-bar {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 16px;
-                margin-top: 36px;
-                padding: 20px 24px;
-                border-radius: 12px;
-                background: var(--base-card);
-                border: 1px solid var(--divider);
-                box-shadow: var(--card-shadow);
-            }
-            @media (min-width: 768px) {
-                .specs-bar { grid-template-columns: repeat(4, 1fr); }
-            }
-            .spec-item {
-                display: flex;
-                flex-direction: column;
-                gap: 4px;
-            }
-            .spec-label {
-                font-size: 11px;
-                text-transform: uppercase;
-                letter-spacing: 0.04em;
-                color: var(--main-muted);
-            }
-            .spec-value {
-                font-size: 14px;
-                font-weight: 700;
-                color: var(--main);
-            }
-
-            /* Section Structure */
-            .section-title-wrap {
-                margin: 64px 0 24px;
-                padding-bottom: 12px;
-                border-bottom: 1px solid var(--divider);
-            }
-            h2 {
-                font-size: 22px;
-                font-weight: 800;
-                letter-spacing: -0.03em;
-                color: var(--main);
-            }
-            .section-desc {
-                font-size: 14px;
-                color: var(--main-muted);
-                margin-top: 4px;
-            }
-
-            /* Card Grids */
-            .card-grid-3 {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 20px;
-                margin-top: 24px;
-            }
-            @media (min-width: 768px) {
-                .card-grid-3 { grid-template-columns: repeat(3, 1fr); }
-            }
-
-            .card-grid-2 {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 20px;
-                margin-top: 24px;
-            }
-            @media (min-width: 768px) {
-                .card-grid-2 { grid-template-columns: repeat(2, 1fr); }
-            }
-
-            .card {
-                background: var(--base-card);
-                border: 1px solid var(--divider);
-                border-radius: 12px;
-                padding: 24px;
-                box-shadow: var(--card-shadow);
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-            }
-            .card:hover {
-                border-color: var(--main);
-                box-shadow: var(--card-shadow-hover);
-                transform: translateY(-2px);
-            }
-
-            .card-title {
-                font-size: 17px;
-                font-weight: 700;
-                letter-spacing: -0.02em;
-                margin-bottom: 10px;
-                color: var(--main);
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            }
-            .card-text {
-                font-size: 14px;
-                color: var(--main-muted);
-                line-height: 1.6;
-                margin-bottom: 16px;
-            }
-            .card-list {
-                list-style: none;
-                margin-bottom: 16px;
-            }
-            .card-list li {
-                font-size: 13px;
-                color: var(--main-muted);
-                margin-bottom: 8px;
-                padding-left: 18px;
-                position: relative;
-                line-height: 1.5;
-            }
-            .card-list li::before {
-                content: '';
-                position: absolute;
-                left: 0;
-                top: 7px;
-                width: 6px;
-                height: 6px;
-                border-radius: 50%;
-                background-color: var(--main-muted);
-            }
-
-            /* Outbound Connections Table */
-            .table-wrap {
-                overflow-x: auto;
-                background: var(--base-card);
-                border: 1px solid var(--divider);
-                border-radius: 12px;
-                box-shadow: var(--card-shadow);
-                margin-top: 24px;
-            }
-            table {
-                width: 100%;
-                border-collapse: collapse;
-                text-align: left;
-                font-size: 13px;
-            }
-            th {
-                background: var(--base-muted);
-                color: var(--main);
-                font-weight: 700;
-                padding: 14px 18px;
-                border-bottom: 1px solid var(--divider);
-                white-space: nowrap;
-            }
-            td {
-                padding: 14px 18px;
-                border-bottom: 1px solid var(--divider);
-                color: var(--main-muted);
-                vertical-align: top;
-            }
-            tr:last-child td { border-bottom: none; }
-            .endpoint-tag {
-                font-family: 'JetBrains Mono', monospace;
-                font-size: 12px;
-                color: var(--main);
-                font-weight: 600;
-            }
-
-            code {
-                background: var(--base-muted);
-                border: 1px solid var(--divider);
-                padding: 2px 6px;
-                border-radius: 4px;
-                font-family: 'JetBrains Mono', monospace;
-                font-size: 12px;
-                color: var(--main);
-            }
-
-            /* Callout Banner */
-            .callout-box {
-                background: var(--base-card);
-                border: 1px solid var(--divider);
-                border-left: 3px solid var(--main);
-                border-radius: 10px;
-                padding: 20px 24px;
-                margin-top: 24px;
-                box-shadow: var(--card-shadow);
-            }
-            .callout-title {
-                font-size: 15px;
-                font-weight: 700;
-                color: var(--main);
-                margin-bottom: 6px;
-            }
-            .callout-desc {
-                font-size: 13px;
-                color: var(--main-muted);
-                line-height: 1.6;
-            }
-
-            /* Footer */
-            footer {
-                border-top: 1px solid var(--divider);
-                background-color: var(--base-card);
-                padding: 48px 24px;
-                margin-top: 80px;
-            }
-            .footer-inner {
-                max-width: 1280px;
-                margin: 0 auto;
-                display: flex;
-                flex-direction: column;
-                gap: 32px;
-            }
-            @media (min-width: 768px) {
-                .footer-inner {
-                    flex-direction: row;
-                    justify-content: space-between;
-                    align-items: flex-start;
-                }
-            }
-            .footer-brand {
-                max-width: 380px;
-            }
-            .footer-brand-title {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                font-size: 16px;
-                font-weight: 800;
-                letter-spacing: -0.03em;
-                color: var(--main);
-                margin-bottom: 10px;
-            }
-            .footer-brand-desc {
-                font-size: 13px;
-                color: var(--main-muted);
-                line-height: 1.6;
-            }
-            .footer-links-grid {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 28px 40px;
-            }
-            @media (min-width: 640px) {
-                .footer-links-grid { grid-template-columns: repeat(3, 1fr); }
-            }
-            .footer-col {
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
-            }
-            .footer-col-title {
-                font-size: 11px;
-                font-weight: 700;
-                text-transform: uppercase;
-                letter-spacing: 0.05em;
-                color: var(--main);
-                margin-bottom: 4px;
-            }
-            .footer-col a {
-                color: var(--main-muted);
-                text-decoration: none;
-                font-size: 12px;
-                transition: color 0.15s;
-            }
-            .footer-col a:hover { color: var(--main); }
-        </style>
-        <script type="module" crossorigin src="/assets/index-CjsltAuy.js"></script>
-        <link rel="stylesheet" crossorigin href="/assets/index-CH1_E2eA.css">
-    </head>
-    <body>
-        <div id="root">
-            <header>
-            <div class="header-inner">
-                <a href="/" class="brand">
-                    <img src="/logo.webp" alt="PocketMC Logo" width="30" height="30" />
-                    <div>
-                        <div class="brand-name">PocketMC</div>
-                        <div class="brand-tag font-mono">LOCAL-FIRST CORE</div>
-                    </div>
-                </a>
-
-                <div class="header-nav">
-                    <nav class="nav-links">
-                        <a href="/" class="nav-link">Home</a>
-                        <a href="/about/" class="nav-link">About</a>
-                        <a href="/docs/" class="nav-link">Docs</a>
-                        <a href="/contact/" class="nav-link">Contact</a>
-                        <a href="/privacy/" class="nav-link active">Privacy</a>
-                        <a href="/terms/" class="nav-link">Terms</a>
-                    </nav>
-
-                    <div class="header-actions">
-                        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
-                            <svg class="sun-icon" style="display: none;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                            </svg>
-                            <svg class="moon-icon" style="display: none;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                            </svg>
-                        </button>
-                        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu">
-                            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="mobile-drawer" id="mobileDrawer">
-                <a href="/">Home</a>
-                <a href="/about/">About</a>
-                <a href="/docs/">Docs</a>
-                <a href="/contact/">Contact</a>
-                <a href="/privacy/" class="active">Privacy</a>
-                <a href="/terms/">Terms</a>
-            </div>
-        </header>
-
-        <div class="page-container">
-            <div class="hero-section">
-                <h1>Privacy &amp; Security Policy</h1>
-                <p class="lead-text">
-                    PocketMC is engineered with an uncompromising local-first architecture. Your server configurations, game worlds, credentials, and telemetry preferences reside strictly on your own hardware. This document outlines how secrets are encrypted, how telemetry operates with zero personal data, and every outbound connection the software makes.
-                </p>
-            </div>
-
-            <div class="specs-bar font-mono">
-                <div class="spec-item">
-                    <span class="spec-label">Storage Location</span>
-                    <span class="spec-value">100% Local Disk</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-label">Secret Encryption</span>
-                    <span class="spec-value">Platform-Native Vault</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-label">Telemetry Model</span>
-                    <span class="spec-value">Optional &amp; Anonymized</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-label">Personal Data Sold</span>
-                    <span class="spec-value">Zero (Never Collected)</span>
-                </div>
-            </div>
-
-            <div class="section-title-wrap">
-                <h2>1. Local Storage Sovereignty &amp; Platform Encryption</h2>
-                <div class="section-desc">Hardware-backed cryptographic security without cloud intermediary storage.</div>
-            </div>
-
-            <div class="card-grid-3">
-                <div class="card">
-                    <div>
-                        <div class="card-title">Local Directory Containment</div>
-                        <div class="card-text">
-                            PocketMC maintains all server configuration files, world archives, console logs, player data, and metadata strictly on your local machine under your designated application directory. We do not mirror or store your game data on proprietary servers.
-                        </div>
-                    </div>
-                    <ul class="card-list">
-                        <li>World saves stay on your NVMe or SSD storage.</li>
-                        <li>No remote access unless you explicitly enable a tunnel.</li>
-                        <li>Full portability: delete or move instances with standard file operations.</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <div>
-                        <div class="card-title">Platform-Native Key Vaults</div>
-                        <div class="card-text">
-                            Sensitive credentials (including CurseForge API tokens, Playit secret keys, OAuth refresh tokens, and AI Provider keys) are encrypted at rest using OS hardware-backed cryptographic facilities:
-                        </div>
-                    </div>
-                    <ul class="card-list">
-                        <li><strong>Windows:</strong> Protected via Windows Data Protection API (DPAPI), bound exclusively to your user SID.</li>
-                        <li><strong>Linux:</strong> Stored via Linux Secret Service API (dbus / GNOME Keyring / KWallet).</li>
-                        <li><strong>macOS:</strong> Protected using Apple Keychain Security framework.</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <div>
-                        <div class="card-title">Direct Cloud Backup Pipe</div>
-                        <div class="card-text">
-                            When configuring automated off-site backups to Google Drive, Microsoft OneDrive, or Dropbox, the connection is established directly between your local PC and the respective cloud provider API.
-                        </div>
-                    </div>
-                    <ul class="card-list">
-                        <li>Zero intermediary servers handle world archives.</li>
-                        <li>OAuth tokens are held in your local DPAPI vault.</li>
-                        <li>RCON freeze and thaw commands preserve chunk consistency.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="section-title-wrap">
-                <h2>2. Telemetry Architecture &amp; Complete Opt-Out</h2>
-                <div class="section-desc">Transparent health metrics designed to evaluate engine stability with zero tracking.</div>
-            </div>
-
-            <div class="card-grid-3">
-                <div class="card">
-                    <div>
-                        <div class="card-title">What Is Collected (If Enabled)</div>
-                        <div class="card-text">
-                            To measure software reliability, track server engine adoption, and diagnose crashes, PocketMC includes an optional telemetry reporting system:
-                        </div>
-                    </div>
-                    <ul class="card-list">
-                        <li><strong>Anonymous Client UUID:</strong> Randomly generated locally on first launch; not tied to hardware serials.</li>
-                        <li><strong>Approximate Country:</strong> Resolved on startup via <code>http://ip-api.com</code> to understand regional usage.</li>
-                        <li><strong>Client Version &amp; Engines:</strong> App version and active server engine counts (e.g. Paper, BDS, Fabric).</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <div>
-                        <div class="card-title">What Is Never Collected</div>
-                        <div class="card-text">
-                            We follow a strict zero-knowledge approach regarding your personal identity, server content, and player behavior:
-                        </div>
-                    </div>
-                    <ul class="card-list">
-                        <li>Zero personal identifiers, real names, or email addresses.</li>
-                        <li>Zero player gamertags, IP addresses, or in-game chat logs.</li>
-                        <li>Zero world saves, seed values, coordinate records, or mods.</li>
-                        <li>Zero hardware MAC addresses, motherboard serials, or GPU IDs.</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <div>
-                        <div class="card-title">1-Click Permanent Opt-Out</div>
-                        <div class="card-text">
-                            Telemetry is completely optional. You can disable all telemetry reporting at any time with a single switch:
-                        </div>
-                    </div>
-                    <ul class="card-list">
-                        <li>Open <strong>Settings</strong> &gt; <strong>Telemetry</strong> in PocketMC.</li>
-                        <li>Toggle <strong>Anonymous Telemetry</strong> to OFF.</li>
-                        <li>All outbound telemetry routines, IP lookups, and proxy pings cease immediately and permanently.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="section-title-wrap">
-                <h2>3. Exhaustive Outbound Connection Disclosures</h2>
-                <div class="section-desc">PocketMC connects to external services only when you explicitly invoke specific application features.</div>
-            </div>
-
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Service &amp; Hostname</th>
-                            <th>Trigger Event</th>
-                            <th>Data Exchanged</th>
-                            <th>Security Standard</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="endpoint-tag">Adoptium &amp; GitHub API<br />api.adoptium.net / github.com</td>
-                            <td>Runtime installation or update check</td>
-                            <td>Requested Java/PHP version, target OS architecture</td>
-                            <td>HTTPS / TLS 1.3 with SHA-256 binary validation</td>
-                        </tr>
-                        <tr>
-                            <td class="endpoint-tag">Modrinth &amp; CurseForge<br />api.modrinth.com / api.curseforge.com</td>
-                            <td>Browsing or installing mods, plugins, datapacks</td>
-                            <td>Search query text, game version, loader type</td>
-                            <td>HTTPS / TLS 1.3 with authenticated API keys</td>
-                        </tr>
-                        <tr>
-                            <td class="endpoint-tag">Playit.gg API<br />api.playit.gg</td>
-                            <td>Provisioning or running public network tunnels</td>
-                            <td>Tunnel claim token, local port allocation request</td>
-                            <td>HTTPS / TLS 1.3 with stateless proxy token auth</td>
-                        </tr>
-                        <tr>
-                            <td class="endpoint-tag">Cloud Storage APIs<br />Google Drive / OneDrive / Dropbox</td>
-                            <td>Scheduled or manual off-site backup upload</td>
-                            <td>ZIP world archives sent directly to user cloud account</td>
-                            <td>OAuth 2.0 PKCE with client-side DPAPI token store</td>
-                        </tr>
-                        <tr>
-                            <td class="endpoint-tag">AI Model Providers<br />Gemini / OpenAI / Claude / Ollama</td>
-                            <td>User clicking "Analyze Log with AI"</td>
-                            <td>Regex-sanitized server crash logs</td>
-                            <td>HTTPS to user endpoint or local HTTP loopback (Ollama)</td>
-                        </tr>
-                        <tr>
-                            <td class="endpoint-tag">Telemetry Relay<br />pocket-mc-proxy.onrender.com</td>
-                            <td>Application launch (if telemetry is enabled)</td>
-                            <td>Anonymous UUID, app version, engine count, country</td>
-                            <td>HTTPS / TLS 1.3 with zero IP address logging</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="section-title-wrap">
-                <h2>4. Diagnostic Logs &amp; Automated Regex Sanitization</h2>
-                <div class="section-desc">Security safeguards applied when generating local diagnostic bundles for troubleshooting.</div>
-            </div>
-
-            <div class="card-grid-2">
-                <div class="card">
-                    <div class="card-title">Regex Secret Masking</div>
-                    <div class="card-text">
-                        When you choose to generate a diagnostic support bundle in PocketMC, an automated sanitization pass scans all server configuration files and console logs before compiling the archive:
-                    </div>
-                    <ul class="card-list">
-                        <li><code>rcon.password</code>, database credentials, and query secrets are replaced with <code>[REDACTED]</code>.</li>
-                        <li>Bearer tokens, API keys, and Playit claim secrets are stripped from log outputs.</li>
-                        <li>Absolute directory paths are converted to relative instance paths.</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">Local Export Control</div>
-                    <div class="card-text">
-                        Diagnostic archives are saved strictly to your local machine (e.g., your Desktop or Downloads folder) as a standard ZIP file.
-                    </div>
-                    <ul class="card-list">
-                        <li>PocketMC never transmits diagnostic archives automatically.</li>
-                        <li>You retain full capability to inspect the ZIP archive before sharing it.</li>
-                        <li>Diagnostic archives can be posted manually on GitHub issues or community Discord channels.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="callout-box">
-                <div class="callout-title">Security Vulnerability Disclosures &amp; Inquiries</div>
-                <div class="callout-desc">
-                    If you discover a security vulnerability or have questions regarding data privacy in PocketMC, please report it directly to our security maintainers at <a href="mailto:contactdslabs@gmail.com" class="font-mono" style="color: var(--main); font-weight: 700;">contactdslabs@gmail.com</a>. We acknowledge receipt within 48 hours and coordinate responsible disclosure fixes before public release.
-                </div>
-            </div>
-        </div>
-
-        <footer>
-            <div class="footer-inner">
-                <div class="footer-brand">
-                    <div class="footer-brand-title">
-                        <img src="/logo.webp" alt="PocketMC Logo" width="22" height="22" style="border-radius: 4px;" />
-                        PocketMC
-                    </div>
-                    <p class="footer-brand-desc">
-                        Free, open-source, local-first Minecraft server management for Windows. Built for performance, security, and zero terminal friction.
-                    </p>
-                    <p class="footer-brand-desc" style="margin-top: 12px; font-size: 11px;">
-                        &copy; 2026 PocketMC Contributors. Licensed under MIT.<br />
-                        Maintained by <a href="https://github.com/sizwinz" target="_blank" style="color: var(--main); font-weight: 700;">sizwinz</a>, <a href="https://github.com/divyviradiya2" target="_blank" style="color: var(--main); font-weight: 700;">divyviradiya2</a>, and the Minecraft community.
-                    </p>
-                    <div style="display: flex; gap: 12px; margin-top: 6px;" class="font-mono">
-                        <a href="/about/" style="color: var(--main-muted); font-size: 12px;">About</a>
-                        <span style="opacity: 0.3;">•</span>
-                        <a href="/contact/" style="color: var(--main-muted); font-size: 12px;">Contact</a>
-                        <span style="opacity: 0.3;">•</span>
-                        <a href="/privacy/" style="color: var(--main); font-weight: 700; font-size: 12px;">Privacy</a>
-                        <span style="opacity: 0.3;">•</span>
-                        <a href="/terms/" style="color: var(--main-muted); font-size: 12px;">Terms</a>
-                    </div>
-                </div>
-
-                <div class="footer-links-grid font-mono">
-                    <div class="footer-col">
-                        <div class="footer-col-title">Developers</div>
-                        <a href="/docs/">Developer Portal</a>
-                        <a href="/docs/openapi.json" target="_blank">OpenAPI Spec</a>
-                        <a href="/.well-known/mcp.json" target="_blank">MCP Manifest</a>
-                        <a href="/llms.txt" target="_blank">llms.txt</a>
-                    </div>
-                    <div class="footer-col">
-                        <div class="footer-col-title">Project</div>
-                        <a href="https://github.com/PocketMC" target="_blank">GitHub Org</a>
-                        <a href="https://github.com/PocketMC/pocket-mc-windows" target="_blank">Windows App</a>
-                        <a href="https://github.com/PocketMC/pocket-mc-website" target="_blank">Website Repo</a>
-                    </div>
-                    <div class="footer-col">
-                        <div class="footer-col-title">Community</div>
-                        <a href="https://discord.gg/mWdMr8Mc2m" target="_blank">Discord Server</a>
-                        <a href="mailto:contactdslabs@gmail.com">Official Email</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </div>
-
-        <script>
-            // Theme toggle logic
-            const themeBtn = document.getElementById('themeToggle');
-            const sunIcon = document.querySelector('.sun-icon');
-            const moonIcon = document.querySelector('.moon-icon');
-
-            function updateThemeIcons() {
-                const isDark = document.documentElement.classList.contains('dark');
-                if (isDark) {
-                    sunIcon.style.display = 'block';
-                    moonIcon.style.display = 'none';
-                } else {
-                    sunIcon.style.display = 'none';
-                    moonIcon.style.display = 'block';
-                }
-            }
-
-            updateThemeIcons();
-
-            themeBtn.addEventListener('click', () => {
-                const isDark = document.documentElement.classList.contains('dark');
-                if (isDark) {
-                    document.documentElement.classList.remove('dark');
-                    localStorage.setItem('theme', 'light');
-                } else {
-                    document.documentElement.classList.add('dark');
-                    localStorage.setItem('theme', 'dark');
-                }
-                updateThemeIcons();
-            });
-
-            // Mobile menu drawer logic
-            const mobileBtn = document.getElementById('mobileMenuBtn');
-            const mobileDrawer = document.getElementById('mobileDrawer');
-            mobileBtn.addEventListener('click', () => {
-                mobileDrawer.classList.toggle('open');
-            });
-        </script>
-    </body>
+					Promise.all([
+						import("../_app/immutable/entry/start.Ky_BwO1X.js"),
+						import("../_app/immutable/entry/app.Y3TEo8Fc.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 22],
+							data: [null,null],
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+	</body>
 </html>

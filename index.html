@@ -1,580 +1,116 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <link rel="icon" type="image/x-icon" href="./favicon.ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" href="./favicon.svg" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+		/>
+		<script>
+			const root = document.documentElement;
+			root.classList.add('js');
 
-        <!-- Non-blocking Google Fonts (preconnect to avoid render-blocking) -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            rel="preload"
-            as="style"
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
-        />
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
-            media="print"
-            onload="this.media = 'all'"
-        />
-        <noscript
-            ><link
-                rel="stylesheet"
-                href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
-        /></noscript>
+			try {
+				const stored = localStorage.getItem('theme');
+				if (stored === 'light' || stored === 'dark') {
+					root.dataset.theme = stored;
+				}
+			} catch {}
 
-        <!-- Primary SEO & Brand Discovery Metadata -->
-        <meta
-            name="google-site-verification"
-            content="N3Nvo8fo2_VexoKoe00C6ss5b-hPNlpDbh2-Uu5XLy4"
-        />
-        <title>
-            PocketMC - The #1 Free Local Minecraft Server Manager for Windows, Linux &amp; Mac
-        </title>
-        <meta
-            name="description"
-            content="PocketMC is the highest-rated free, open-source local Minecraft server manager. Run Java &amp; Bedrock servers locally with zero port forwarding, automatic Adoptium Java runtimes, built-in Ollama Model Manager for local AI summaries, granular multi-user remote control, Playit binary console, and scheduled reboots."
-        />
-        <meta
-            name="keywords"
-            content="PocketMC, Pocket MC, PocketMC 1.9.9, PocketMC Server Manager, Pocket-MC, Local Minecraft Server Manager, Free Minecraft Server Host, Minecraft Server Setup Windows, PaperMC Server Manager, Fabric Server Host, Bedrock BDS Manager, Playit.gg Minecraft GUI, Playit Agent v1.0.10, Minecraft Server without Port Forwarding, Adoptium Java Manager Minecraft, Ollama Model Manager Minecraft, Multi-User Minecraft Remote Control, Scheduled Minecraft Server Restart, Local LLM Minecraft Log Summaries, PocketMC vs Crafty Controller, PocketMC vs MCSManager, Self-Hosted Minecraft Server GUI, Free Minecraft Crossplay Server"
-        />
-        <meta name="author" content="PocketMC Contributors (sizwinz, divyviradiya2)" />
-        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-        <meta name="googlebot" content="index, follow" />
-        <meta name="bingbot" content="index, follow" />
-        <link
-            rel="canonical"
-            href="https://pocketmc.github.io/"
-        />
+			try {
+				const nav = performance.getEntriesByType('navigation')[0];
+				if (location.hash && (!nav || nav.type === 'reload')) {
+					history.replaceState(history.state, '', location.pathname + location.search);
+				}
+			} catch {}
 
-        <!-- Alternate Markdown Representations for AI Agents -->
-        <link
-            rel="alternate"
-            type="text/markdown"
-            href="https://pocketmc.github.io/llms.txt"
-            title="PocketMC LLM Agent Guide"
-        />
-        <link
-            rel="alternate"
-            type="text/markdown"
-            href="https://pocketmc.github.io/llms-full.txt"
-            title="PocketMC Full Documentation (Markdown)"
-        />
-        <link
-            rel="alternate"
-            type="text/markdown"
-            href="https://pocketmc.github.io/index.md"
-            title="PocketMC Homepage (Markdown)"
-        />
-        <link
-            rel="alternate"
-            type="application/json"
-            href="https://pocketmc.github.io/.well-known/mcp.json"
-            title="PocketMC Model Context Protocol (MCP) Manifest"
-        />
-        <link
-            rel="alternate"
-            type="application/json"
-            href="https://pocketmc.github.io/docs/openapi.json"
-            title="PocketMC OpenAPI 3.1.0 Specification"
-        />
+			addEventListener('beforeunload', () => scrollTo(0, 0));
 
-        <!-- Theme & Mobile Integration -->
-        <meta name="theme-color" content="#121214" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta
-            name="apple-mobile-web-app-status-bar-style"
-            content="black-translucent"
-        />
+			const settled = () => root.classList.add('fonts');
 
-        <!-- Open Graph / Facebook -->
-        <meta property="og:type" content="website" />
-        <meta
-            property="og:title"
-            content="PocketMC - The #1 Free Local Minecraft Server Manager"
-        />
-        <meta
-            property="og:description"
-            content="The highest-rated free, open-source Minecraft server manager. Run Java &amp; Bedrock servers locally with zero port forwarding, Adoptium Java runtimes, Ollama AI model management, multi-user remote control, and automated cloud backups."
-        />
-        <meta
-            property="og:image"
-            content="https://pocketmc.github.io/screenshots/screenshot-dashboard.webp"
-        />
-        <meta property="og:image:width" content="1280" />
-        <meta property="og:image:height" content="800" />
-        <meta
-            property="og:image:alt"
-            content="PocketMC dashboard showing a running Minecraft server with real-time logs and controls"
-        />
-        <meta
-            property="og:url"
-            content="https://pocketmc.github.io/"
-        />
-        <meta property="og:site_name" content="PocketMC" />
+			if (document.fonts) {
+				document.fonts.ready.then(settled);
+				setTimeout(settled, 900);
+			} else {
+				settled();
+			}
+		</script>
+		<link href="./_app/immutable/entry/start.Ky_BwO1X.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/DegIvrlX.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/DXlPIeNd.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/Ca1cr6g6.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/wLZXzzn-.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/BcX6dVrO.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/-UyI9lYi.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/C2-g8qjk.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/B0XwC4Ot.js" rel="modulepreload">
+		<link href="./_app/immutable/entry/app.Y3TEo8Fc.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/Bzak7iHL.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/ldDpiIfT.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/CDy4NSHO.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/BG0lQ1nD.js" rel="modulepreload">
+		<link href="./_app/immutable/nodes/0.BksakLJB.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/B00CmvBa.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/CynDSgQa.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/CUtU19fk.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/CtD-gXTd.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/DWgGYrAr.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/HiPkiPc1.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/Cw4xakxo.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/BSxVTRTI.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/esalcsm6.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/X3JyJcHJ.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/zd_LW5dR.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/iQSyCmUd.js" rel="modulepreload">
+		<link href="./_app/immutable/nodes/3.BMjpxZlE.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/ClmE1Ip3.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/B1WR-ByE.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/CGNxgKbc.js" rel="modulepreload">
+		<!--1uha8ag--><meta name="description" content="The #1 local-first Minecraft server manager for Windows, Linux and macOS. Paper, Fabric, Forge, NeoForge &amp; Bedrock with Playit.gg tunnels, Adoptium runtimes and cloud backups."/><!----><title>PocketMC · Free Local Minecraft Server Manager</title>
+		<link href="./_app/immutable/assets/Logo.LYB8j-fg.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/Mark.3YGEcTDu.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/0.C2_ULjEV.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/Glyph.B7b-98hC.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/CopyButton.DfJ9XQjB.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/3.J57_b9tw.css" rel="stylesheet">
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents"><!--[--><!--[0--><!--[--><div class="slot svelte-a8kxe2"></div> <header class="svelte-a8kxe2"><div class="bar svelte-a8kxe2"><div class="left svelte-a8kxe2"><a href="#top" class="brand svelte-a8kxe2"><img src="/logo.webp" alt="PocketMC" width="22" height="22" class="logo-img svelte-1l8nvlt" style="width: 22px; height: 22px;"/><!----> <span>PocketMC</span></a> <nav class="svelte-a8kxe2"><!--[--><a href="#steps" class="svelte-a8kxe2">Install</a><a href="#about" class="svelte-a8kxe2">Features</a><a href="#tour" class="svelte-a8kxe2">Showcase</a><a href="#softwares" class="svelte-a8kxe2">Softwares</a><a href="#comparison" class="svelte-a8kxe2">Comparison</a><a href="/docs" class="svelte-a8kxe2">Docs</a><a href="/faq" class="svelte-a8kxe2">FAQ</a><a href="/about" class="svelte-a8kxe2">About</a><a href="/contact" class="svelte-a8kxe2">Contact</a><!--]--></nav></div> <div class="right svelte-a8kxe2"><div class="switch svelte-mls84d"><!--[--><button title="System" aria-label="System" aria-pressed="true" class="svelte-mls84d on"><!--[0--><svg viewBox="0 0 24 24" aria-hidden="true" class="svelte-mls84d"><rect x="3" y="4" width="18" height="12" rx="2"></rect><path d="M8 20h8"></path></svg><!--]--></button><button title="Light" aria-label="Light" aria-pressed="false" class="svelte-mls84d"><!--[1--><svg viewBox="0 0 24 24" aria-hidden="true" class="svelte-mls84d"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="M4.9 4.9l1.4 1.4"></path><path d="M17.7 17.7l1.4 1.4"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="M4.9 19.1l1.4-1.4"></path><path d="M17.7 6.3l1.4-1.4"></path></svg><!--]--></button><button title="Dark" aria-label="Dark" aria-pressed="false" class="svelte-mls84d"><!--[-1--><svg viewBox="0 0 24 24" aria-hidden="true" class="svelte-mls84d"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"></path></svg><!--]--></button><!--]--></div><!----> <a href="https://github.com/PocketMC/pocket-mc-windows" class="star svelte-a8kxe2" target="_blank" rel="noopener noreferrer"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="svelte-1mi20zr"><!----><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" /><!----></svg><!----> GitHub <!--[0--><span class="count svelte-a8kxe2">32</span><!--]--></a> <a href="#steps" class="download svelte-a8kxe2">Install</a> <button type="button" class="toggle svelte-a8kxe2" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><svg viewBox="0 0 24 24" aria-hidden="true" class="svelte-a8kxe2"><!--[-1--><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path><!--]--></svg></button></div></div> <!--[-1--><!--]--></header> <!--[-1--><!--]--><!----> <div class="page-column"><!--[-1--><!--[--><section id="top" class="hero svelte-1q37ri0"><div class="page svelte-1q37ri0"><div class="mark svelte-1q37ri0" data-enter=""><img src="/logo.webp" alt="PocketMC" width="72" height="72" class="logo-img svelte-1l8nvlt" style="width: 72px; height: 72px;"/><!----></div> <h1 data-enter="" style="--enter: 0.05s" class="svelte-1q37ri0">PocketMC</h1> <p class="tagline svelte-1q37ri0" data-enter="" style="--enter: 0.09s">The local-first Minecraft server manager. Zero router setup, automated Adoptium Java
+			provisioning, and seamless cloud backups.</p> <div class="cta svelte-1q37ri0" data-enter="" style="--enter: 0.14s"><a class="btn btn-primary" href="#steps"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13"></path><path d="M7 12l5 5 5-5"></path><path d="M4 21h16"></path></svg> Install PocketMC</a> <a class="btn btn-secondary" href="https://github.com/PocketMC/pocket-mc-windows" target="_blank" rel="noopener noreferrer"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="svelte-1mi20zr"><!----><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" /><!----></svg><!----> Source</a></div> <p class="fine svelte-1q37ri0" data-enter="" style="--enter: 0.19s"><!--[0--><a class="mono svelte-1q37ri0" href="/changelog">v1.9.10</a> <span class="dot svelte-1q37ri0">·</span><!--]--> Free and open source <span class="dot svelte-1q37ri0">·</span> Windows, Linux, macOS <span class="dot svelte-1q37ri0">·</span> GPL-3.0</p></div> <div id="tour" class="showcase-wrap svelte-1q37ri0" data-enter="" style="--enter: 0.26s"><div class="page svelte-1q37ri0"><div class="showcase-frame svelte-1q37ri0"><div class="tab-strip svelte-1q37ri0" role="tablist" aria-label="Feature Showcase Tabs"><!--[--><button type="button" role="tab" class="tab-btn svelte-1q37ri0 active" aria-selected="true">Overview Video</button><button type="button" role="tab" class="tab-btn svelte-1q37ri0" aria-selected="false">Instance Dashboard</button><button type="button" role="tab" class="tab-btn svelte-1q37ri0" aria-selected="false">Console &amp; Logs</button><button type="button" role="tab" class="tab-btn svelte-1q37ri0" aria-selected="false">Mods &amp; Add-ons</button><button type="button" role="tab" class="tab-btn svelte-1q37ri0" aria-selected="false">Config &amp; Backups</button><button type="button" role="tab" class="tab-btn svelte-1q37ri0" aria-selected="false">Java Provisioning</button><button type="button" role="tab" class="tab-btn svelte-1q37ri0" aria-selected="false">Remote Web Control</button><button type="button" role="tab" class="tab-btn svelte-1q37ri0" aria-selected="false">Mobile UI</button><button type="button" role="tab" class="tab-btn svelte-1q37ri0" aria-selected="false">Themes &amp; Personalization</button><!--]--></div> <div class="stage svelte-1q37ri0"><!--[0--><div class="media-container video-container svelte-1q37ri0"><video src="/Video/PocketMC.mp4" autoplay="" loop="" muted="" playsinline="" controls="" class="showcase-media svelte-1q37ri0">Your browser does not support the video tag.</video></div><!--]--> <div class="stage-footer svelte-1q37ri0"><div class="stage-text svelte-1q37ri0"><span class="kicker">Highlight</span> <h3 class="svelte-1q37ri0">Complete Native Server Control</h3> <p class="svelte-1q37ri0">Watch PocketMC in action: 1-click server provisioning, real-time Adoptium Java runtime installation, colorized live terminal logging, and zero-router Playit.gg network tunneling.</p></div> <ul class="bullets svelte-1q37ri0"><!--[--><li class="svelte-1q37ri0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="check-icon svelte-1q37ri0"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>Single-click instance creation for Paper, Fabric, Forge, NeoForge, Vanilla &amp; Bedrock</span></li><li class="svelte-1q37ri0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="check-icon svelte-1q37ri0"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>Interactive live terminal with ANSI color support, auto-scroll, and command auto-completion</span></li><li class="svelte-1q37ri0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="check-icon svelte-1q37ri0"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>Integrated Playit.gg tunnel agent with instant copy-to-clipboard public join address</span></li><li class="svelte-1q37ri0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="check-icon svelte-1q37ri0"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>Zero-friction user experience running entirely in desktop user-space</span></li><!--]--></ul></div></div></div></div></div></section><!----> <section id="steps" class="section"><span class="cross start"></span> <span class="cross end"></span> <div class="page svelte-1yoj9db"><div class="section-head"><span class="kicker">Install</span> <h2>Step by step</h2> <p class="lead">Deploy PocketMC in seconds on your platform of choice. Zero administrative elevation required.</p></div> <div class="wire panel svelte-1yoj9db"><div class="rail svelte-1yoj9db"><nav class="list svelte-1yoj9db" aria-label="Platforms"><!--[--><button type="button" class="row svelte-1yoj9db on" aria-pressed="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="svelte-1mi20zr"><!----><path fill-rule="nonzero" d="M3 5.5l8-1.1v7.1H3zM12 4.2l9-1.2v8.5h-9zM3 12.5h8v7.1l-8-1.1zM12 12.5h9v8.5l-9-1.2z" /><!----></svg><!----> <span class="label svelte-1yoj9db">Windows</span> <span class="mono hint svelte-1yoj9db">exe</span></button><button type="button" class="row svelte-1yoj9db" aria-pressed="false"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="svelte-1mi20zr"><!----><path fill-rule="nonzero" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5l-3.5-3.5 1.41-1.41L11 13.67l5.09-5.09L17.5 10 11 16.5z" /><!----></svg><!----> <span class="label svelte-1yoj9db">Linux</span> <span class="mono hint svelte-1yoj9db">sh</span></button><button type="button" class="row svelte-1yoj9db" aria-pressed="false"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="svelte-1mi20zr"><!----><path fill-rule="nonzero" d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.44c.66-.82 1.11-1.96.99-3.1-.96.04-2.11.64-2.8 1.45-.6.7-1.13 1.83-1 2.95 1.08.08 2.16-.54 2.81-1.3" /><!----></svg><!----> <span class="label svelte-1yoj9db">macOS</span> <span class="mono hint svelte-1yoj9db">sh</span></button><!--]--></nav></div> <div class="steps svelte-1yoj9db"><div class="clip"><div class="stack"><!----><div class="swap svelte-1yoj9db"><!--[--><div class="step svelte-1yoj9db"><span class="mono index svelte-1yoj9db">01</span> <div class="body svelte-1yoj9db"><p class="caption svelte-1yoj9db">Download and run the installer</p> <!--[0--><a class="code link svelte-1yoj9db" href="https://github.com/PocketMC/pocket-mc-windows/releases/latest/download/PocketMC-Setup.exe" target="_blank" rel="noopener noreferrer"><span class="mono text svelte-1yoj9db">PocketMC-Setup.exe</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13"></path><path d="M7 12l5 5 5-5"></path><path d="M4 21h16"></path></svg></a><!--]--> <!--[-1--><!--]--></div></div><div class="step svelte-1yoj9db"><span class="mono index svelte-1yoj9db">02</span> <div class="body svelte-1yoj9db"><p class="caption svelte-1yoj9db">Or install via winget (command line)</p> <!--[-1--><div class="code svelte-1yoj9db"><pre class="mono text svelte-1yoj9db">winget install PocketMC.PocketMC</pre> <button type="button" class="copy svelte-1kw4msz" aria-label="Copy" title="Copy to clipboard"><!--[-1--><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><!--]--></button><!----></div><!--]--> <!--[0--><p class="hint-text svelte-1yoj9db">Automates downloading and installing the latest release directly into your user profile.</p><!--]--></div></div><div class="step svelte-1yoj9db"><span class="mono index svelte-1yoj9db">03</span> <div class="body svelte-1yoj9db"><p class="caption svelte-1yoj9db">Portable release build</p> <!--[0--><a class="code link svelte-1yoj9db" href="https://github.com/PocketMC/pocket-mc-windows/releases/latest" target="_blank" rel="noopener noreferrer"><span class="mono text svelte-1yoj9db">PocketMC-Portable.zip</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13"></path><path d="M7 12l5 5 5-5"></path><path d="M4 21h16"></path></svg></a><!--]--> <!--[0--><p class="hint-text svelte-1yoj9db">Extract and launch directly without installing system-wide.</p><!--]--></div></div><!--]--> <p class="note svelte-1yoj9db">No administrator privileges required. PocketMC installs per-user and manages all server runtimes locally without touching system environment variables.</p></div><!----></div></div></div></div></div></section><!----> <section id="about" class="section"><span class="cross start"></span> <span class="cross end"></span> <div class="page svelte-7hpc9t"><div class="section-head"><span class="kicker">Features</span> <h2>What it does</h2> <p class="lead">Engineered to eliminate terminal complexity, safeguard data sovereignty, and automate local
+				Minecraft server operations.</p></div> <div class="wire cells svelte-7hpc9t"><!--[--><article class="svelte-7hpc9t"><span class="kicker svelte-7hpc9t">Server Engines</span> <ul class="svelte-7hpc9t"><!--[--><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><rect x="2" y="3" width="20" height="8" rx="2"/><rect x="2" y="13" width="20" height="8" rx="2"/><path d="M6 7h.01"/><path d="M6 17h.01"/><!----></svg><!----> <span>Paper (High-performance Spigot)</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/><!----></svg><!----> <span>Fabric (Lightweight &amp; modular)</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/><!----></svg><!----> <span>NeoForge &amp; Forge mod loaders</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><rect x="2" y="3" width="20" height="8" rx="2"/><rect x="2" y="13" width="20" height="8" rx="2"/><path d="M6 7h.01"/><path d="M6 17h.01"/><!----></svg><!----> <span>Official Mojang Vanilla JARs</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><!----></svg><!----> <span>Bedrock Dedicated Server (BDS)</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/><!----></svg><!----> <span>PocketMine-MP (PHP 8.2 PM5)</span></li><!--]--></ul></article><article class="svelte-7hpc9t"><span class="kicker svelte-7hpc9t">Lifecycle &amp; Safety</span> <ul class="svelte-7hpc9t"><!--[--><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><!----></svg><!----> <span>RCON graceful save-holding flush</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/><!----></svg><!----> <span>Crash recovery with auto-backoff</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/><!----></svg><!----> <span>Port-collision preflight guard</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><line x1="22" y1="12" x2="2" y2="12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" y1="16" x2="6.01" y2="16"/><line x1="10" y1="16" x2="10.01" y2="16"/><!----></svg><!----> <span>Low-disk warning (&lt; 2 GB guard)</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/><!----></svg><!----> <span>Windows sleep mode inhibition</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/><!----></svg><!----> <span>80% System RAM over-allocation alert</span></li><!--]--></ul></article><article class="svelte-7hpc9t"><span class="kicker svelte-7hpc9t">Java &amp; Runtimes</span> <ul class="svelte-7hpc9t"><!--[--><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/><!----></svg><!----> <span>Adoptium JREs (Java 8, 11, 17, 21, 25)</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/><!----></svg><!----> <span>Auto-selection based on server JAR</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><line x1="22" y1="12" x2="2" y2="12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" y1="16" x2="6.01" y2="16"/><line x1="10" y1="16" x2="10.01" y2="16"/><!----></svg><!----> <span>Managed app-local dependencies</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/><!----></svg><!----> <span>Isolated instance directories</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><!----></svg><!----> <span>Zero administrator elevation needed</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/><!----></svg><!----> <span>Auto PHP PM5 for Bedrock</span></li><!--]--></ul></article><article class="svelte-7hpc9t"><span class="kicker svelte-7hpc9t">Networking &amp; Remote</span> <ul class="svelte-7hpc9t"><!--[--><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><!----></svg><!----> <span>Integrated Playit.gg tunnel agent</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/><!----></svg><!----> <span>Cloudflare Quick Tunnels support</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/><!----></svg><!----> <span>Responsive mobile web dashboard</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><!----></svg><!----> <span>Instant QR code mobile pairing</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/><!----></svg><!----> <span>Multi-user roles &amp; permission scopes</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><!----></svg><!----> <span>Discord Bot access token pairing</span></li><!--]--></ul></article><article class="svelte-7hpc9t"><span class="kicker svelte-7hpc9t">Content &amp; Add-ons</span> <ul class="svelte-7hpc9t"><!--[--><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/><!----></svg><!----> <span>In-app Modrinth marketplace browser</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/><!----></svg><!----> <span>CurseForge browser &amp; Poggit integration</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><path d="M6 14.5 7.4 11.6A2 2 0 0 1 9.2 10.5H21a1 1 0 0 1 .95 1.3l-1.7 5.7a2 2 0 0 1-1.9 1.5H4a2 2 0 0 1-2-2V5.5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.7.9l.8 1.2a2 2 0 0 0 1.6.9H18a2 2 0 0 1 2 2v2"/><!----></svg><!----> <span>Three-dot menu Explorer folder jumps</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/><!----></svg><!----> <span>Enable / disable mods without rename</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/><!----></svg><!----> <span>Bedrock .mcpack, .mcaddon ingestion</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><!----></svg><!----> <span>Automatic Geyser &amp; Floodgate cross-play</span></li><!--]--></ul></article><article class="svelte-7hpc9t"><span class="kicker svelte-7hpc9t">Backups &amp; Storage</span> <ul class="svelte-7hpc9t"><!--[--><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/><!----></svg><!----> <span>Automated Google Drive replication</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/><!----></svg><!----> <span>Dropbox &amp; OneDrive OAuth sync</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><!----></svg><!----> <span>SHA-256 archive integrity checks</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/><!----></svg><!----> <span>Automated Cron &amp; reboot scheduling</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/><!----></svg><!----> <span>Pre-backup RCON save sync</span></li><li class="svelte-7hpc9t"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><line x1="22" y1="12" x2="2" y2="12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" y1="16" x2="6.01" y2="16"/><line x1="10" y1="16" x2="10.01" y2="16"/><!----></svg><!----> <span>100% data sovereignty on your disk</span></li><!--]--></ul></article><!--]--></div></div></section><!----> <section id="softwares" class="section"><span class="cross start"></span> <span class="cross end"></span> <div class="page svelte-15cbg9y"><div class="section-head"><span class="kicker">Ecosystem</span> <h2>Supported Server Engines</h2> <p class="lead">From vanilla survival to massive modded networks, PocketMC supports the industry's most popular
+				Java and Bedrock loaders out of the box.</p></div> <div class="wire grid svelte-15cbg9y"><!--[--><article class="card svelte-15cbg9y"><div class="top svelte-15cbg9y"><img src="/icons/papermc.png" alt="Paper" width="32" height="32" class="software-icon svelte-15cbg9y"/> <div class="meta svelte-15cbg9y"><h3 class="svelte-15cbg9y">Paper</h3> <span class="tag svelte-15cbg9y">Plugins</span></div></div> <p class="desc svelte-15cbg9y">High-performance Spigot fork with extreme optimizations and plugin support.</p> <span class="mono versions svelte-15cbg9y">1.8.8 – Latest</span></article><article class="card svelte-15cbg9y"><div class="top svelte-15cbg9y"><img src="/icons/fabric.png" alt="Fabric" width="32" height="32" class="software-icon svelte-15cbg9y"/> <div class="meta svelte-15cbg9y"><h3 class="svelte-15cbg9y">Fabric</h3> <span class="tag svelte-15cbg9y">Mods</span></div></div> <p class="desc svelte-15cbg9y">Lightweight, modular modding toolchain with fast launch times.</p> <span class="mono versions svelte-15cbg9y">1.14 – Latest</span></article><article class="card svelte-15cbg9y"><div class="top svelte-15cbg9y"><img src="/icons/neoforge.png" alt="NeoForge" width="32" height="32" class="software-icon svelte-15cbg9y"/> <div class="meta svelte-15cbg9y"><h3 class="svelte-15cbg9y">NeoForge</h3> <span class="tag svelte-15cbg9y">Mods</span></div></div> <p class="desc svelte-15cbg9y">Community-driven modern modding platform for modern Minecraft versions.</p> <span class="mono versions svelte-15cbg9y">1.20.2 – Latest</span></article><article class="card svelte-15cbg9y"><div class="top svelte-15cbg9y"><img src="/icons/forge.png" alt="Forge" width="32" height="32" class="software-icon svelte-15cbg9y"/> <div class="meta svelte-15cbg9y"><h3 class="svelte-15cbg9y">Forge</h3> <span class="tag svelte-15cbg9y">Mods</span></div></div> <p class="desc svelte-15cbg9y">Classic heavyweight mod loader powering thousands of iconic modpacks.</p> <span class="mono versions svelte-15cbg9y">1.8.8 – Latest</span></article><article class="card svelte-15cbg9y"><div class="top svelte-15cbg9y"><img src="/icons/vanilla.png" alt="Vanilla Java" width="32" height="32" class="software-icon svelte-15cbg9y"/> <div class="meta svelte-15cbg9y"><h3 class="svelte-15cbg9y">Vanilla Java</h3> <span class="tag svelte-15cbg9y">Java</span></div></div> <p class="desc svelte-15cbg9y">Official Mojang dedicated server JARs direct from Mojang servers.</p> <span class="mono versions svelte-15cbg9y">1.8.8 – Latest</span></article><article class="card svelte-15cbg9y"><div class="top svelte-15cbg9y"><img src="/icons/bds.png" alt="Bedrock Dedicated Server" width="32" height="32" class="software-icon svelte-15cbg9y"/> <div class="meta svelte-15cbg9y"><h3 class="svelte-15cbg9y">Bedrock Dedicated Server</h3> <span class="tag svelte-15cbg9y">Bedrock</span></div></div> <p class="desc svelte-15cbg9y">Official Windows BDS executable for native cross-platform Bedrock play.</p> <span class="mono versions svelte-15cbg9y">Release &amp; Preview</span></article><article class="card svelte-15cbg9y"><div class="top svelte-15cbg9y"><img src="/icons/pocketmine-mp.png" alt="PocketMine-MP" width="32" height="32" class="software-icon svelte-15cbg9y"/> <div class="meta svelte-15cbg9y"><h3 class="svelte-15cbg9y">PocketMine-MP</h3> <span class="tag svelte-15cbg9y">PHP</span></div></div> <p class="desc svelte-15cbg9y">Fast, extensible PHP-based Bedrock server engine with managed PHP 8.2 PM5.</p> <span class="mono versions svelte-15cbg9y">PM5 Latest</span></article><!--]--></div></div></section><!----> <section id="comparison" class="section"><span class="cross start"></span> <span class="cross end"></span> <div class="page svelte-qq9oyz"><div class="section-head"><span class="kicker">Benchmark</span> <h2>How PocketMC Compares</h2> <p class="lead">Why pay monthly subscription fees for underpowered cloud VPS containers when your home PC has
+				vastly superior hardware ready to run for free?</p></div> <div class="wire table-wrap svelte-qq9oyz"><div class="scroll-table svelte-qq9oyz"><table class="svelte-qq9oyz"><thead class="svelte-qq9oyz"><tr><th class="feature-col svelte-qq9oyz">Feature</th><th class="highlight-col svelte-qq9oyz">PocketMC</th><th class="svelte-qq9oyz">Cloud VPS / Hostinger</th><th class="svelte-qq9oyz">Free Hosts (Aternos)</th><th class="svelte-qq9oyz">Manual Server Setup</th></tr></thead><tbody><!--[--><tr class="category-row svelte-qq9oyz"><td colspan="5" class="svelte-qq9oyz">Cost &amp; Freedom</td></tr> <!--[--><tr><td class="feature-title svelte-qq9oyz">Monthly Cost</td><td class="highlight-val svelte-qq9oyz">Free forever ($0)</td><td class="svelte-qq9oyz">$5 - $40 / month</td><td class="svelte-qq9oyz">Free (heavy ads / queues)</td><td class="svelte-qq9oyz">Free</td></tr><tr><td class="feature-title svelte-qq9oyz">Hardware Limits</td><td class="highlight-val svelte-qq9oyz">Uses 100% of your PC RAM/CPU</td><td class="svelte-qq9oyz">Capped at paid tier specs</td><td class="svelte-qq9oyz">Strict 2–4 GB RAM cap</td><td class="svelte-qq9oyz">Uses PC specs</td></tr><tr><td class="feature-title svelte-qq9oyz">Always Online</td><td class="highlight-val svelte-qq9oyz">Runs while PC is on (sleep inhibitor)</td><td class="svelte-qq9oyz">24/7 cloud server</td><td class="svelte-qq9oyz">Auto-shuts down when empty</td><td class="svelte-qq9oyz">Runs while PC is on</td></tr><!--]--><tr class="category-row svelte-qq9oyz"><td colspan="5" class="svelte-qq9oyz">Networking &amp; Access</td></tr> <!--[--><tr><td class="feature-title svelte-qq9oyz">Port Forwarding Required</td><td class="highlight-val svelte-qq9oyz">No (built-in Playit tunnel)</td><td class="svelte-qq9oyz">No (public cloud IP)</td><td class="svelte-qq9oyz">No (dynamic IP)</td><td class="svelte-qq9oyz">Yes (router port forward)</td></tr><tr><td class="feature-title svelte-qq9oyz">Remote Web Control</td><td class="highlight-val svelte-qq9oyz">Built-in web panel &amp; QR mobile pair</td><td class="svelte-qq9oyz">Requires custom panel setup</td><td class="svelte-qq9oyz">Web panel only</td><td class="svelte-qq9oyz">None</td></tr><tr><td class="feature-title svelte-qq9oyz">Data Sovereignty</td><td class="highlight-val svelte-qq9oyz">100% local on your disk</td><td class="svelte-qq9oyz">Stored on provider hardware</td><td class="svelte-qq9oyz">Hosted remotely, deleted if inactive</td><td class="svelte-qq9oyz">100% local</td></tr><!--]--><tr class="category-row svelte-qq9oyz"><td colspan="5" class="svelte-qq9oyz">Ease of Use &amp; Tooling</td></tr> <!--[--><tr><td class="feature-title svelte-qq9oyz">Adoptium Java Provisioning</td><td class="highlight-val svelte-qq9oyz">Automatic per-instance (8-25)</td><td class="svelte-qq9oyz">Manual CLI package installation</td><td class="svelte-qq9oyz">Fixed container version</td><td class="svelte-qq9oyz">Manual JDK install &amp; PATH setup</td></tr><tr><td class="feature-title svelte-qq9oyz">Mod &amp; Plugin Marketplaces</td><td class="highlight-val svelte-qq9oyz">In-app Modrinth &amp; CurseForge</td><td class="svelte-qq9oyz">Manual SFTP / wget download</td><td class="svelte-qq9oyz">Limited curated catalog</td><td class="svelte-qq9oyz">Manual browser download &amp; drop</td></tr><tr><td class="feature-title svelte-qq9oyz">Cloud Backups</td><td class="highlight-val svelte-qq9oyz">OAuth Google Drive, Dropbox, OneDrive</td><td class="svelte-qq9oyz">Paid addon or custom bash cron</td><td class="svelte-qq9oyz">Google Drive backup only</td><td class="svelte-qq9oyz">Manual copy or custom script</td></tr><tr><td class="feature-title svelte-qq9oyz">AI Crash Post-Mortems</td><td class="highlight-val svelte-qq9oyz">Built-in Ollama, Gemini, Claude, OpenAI</td><td class="svelte-qq9oyz">None</td><td class="svelte-qq9oyz">None</td><td class="svelte-qq9oyz">None</td></tr><!--]--><!--]--></tbody></table></div></div></div></section><!----> <section id="stability" class="section"><span class="cross start"></span> <span class="cross end"></span> <div class="page svelte-7gjs7z"><div class="section-head"><span class="kicker">Engineering</span> <h2>Production Stability</h2> <p class="lead svelte-7gjs7z">Built with native desktop resilience to protect your worlds, your hardware, and your player
+				community around the clock.</p></div> <div class="wire grid svelte-7gjs7z"><!--[--><article class="card svelte-7gjs7z"><div class="icon-wrap svelte-7gjs7z"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><!----></svg><!----></div> <h3 class="svelte-7gjs7z">Crash Loop Protection</h3> <p class="svelte-7gjs7z">Monitors server instance processes with automated backoff logic and a 3-loop crash limit to protect your CPU from runaway execution cycles.</p></article><article class="card svelte-7gjs7z"><div class="icon-wrap svelte-7gjs7z"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><line x1="22" y1="12" x2="2" y2="12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" y1="16" x2="6.01" y2="16"/><line x1="10" y1="16" x2="10.01" y2="16"/><!----></svg><!----></div> <h3 class="svelte-7gjs7z">RCON Save-Flush Safeguard</h3> <p class="svelte-7gjs7z">Executes a clean save-off and save-all sequence before creating backups, guaranteeing zero chunk write corruption or lost player inventory.</p></article><article class="card svelte-7gjs7z"><div class="icon-wrap svelte-7gjs7z"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/><!----></svg><!----></div> <h3 class="svelte-7gjs7z">Windows Sleep Inhibitor</h3> <p class="svelte-7gjs7z">Seamlessly hooks into Windows power management to prevent your computer from sleeping while servers are active, resuming normal sleep upon shutdown.</p></article><article class="card svelte-7gjs7z"><div class="icon-wrap svelte-7gjs7z"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/><!----></svg><!----></div> <h3 class="svelte-7gjs7z">80% System RAM Safety Guard</h3> <p class="svelte-7gjs7z">Validates requested server memory allocations against real-time system memory headroom to prevent Windows out-of-memory lockups and freezing.</p></article><article class="card svelte-7gjs7z"><div class="icon-wrap svelte-7gjs7z"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/><!----></svg><!----></div> <h3 class="svelte-7gjs7z">SHA-256 Cloud Checksums</h3> <p class="svelte-7gjs7z">Validates archive hashes during OAuth uploads to Google Drive, Dropbox, and OneDrive to ensure backups can always be restored with complete fidelity.</p></article><article class="card svelte-7gjs7z"><div class="icon-wrap svelte-7gjs7z"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="svelte-8tyru2"><!----><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/><!----></svg><!----></div> <h3 class="svelte-7gjs7z">Isolated Desktop User-Space</h3> <p class="svelte-7gjs7z">Operates 100% inside your standard user profile. No administrative elevation, no driver installations, and zero pollution of your system PATH.</p></article><!--]--></div></div></section><!----> <section class="section"><span class="cross start"></span> <span class="cross end"></span> <div class="page svelte-peni0m"><div class="wire box svelte-peni0m"><div class="inner svelte-peni0m"><span class="kicker">Get Started</span> <h2 class="svelte-peni0m">Run your server on your own terms</h2> <p class="lead svelte-peni0m">Free, local, private, and always under your control. Available for Windows, Linux, and macOS.</p> <div class="actions svelte-peni0m"><a class="btn btn-primary" href="#steps"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13"></path><path d="M7 12l5 5 5-5"></path><path d="M4 21h16"></path></svg> Install PocketMC</a> <a class="btn btn-secondary" href="https://github.com/PocketMC/pocket-mc-windows" target="_blank" rel="noopener noreferrer"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="svelte-1mi20zr"><!----><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" /><!----></svg><!----> View on GitHub</a></div></div></div></div></section><!----><!--]--><!--]--><!----> <footer class="section"><span class="cross start"></span> <span class="cross end"></span> <div class="page svelte-4jwo3w"><div class="cols svelte-4jwo3w"><div class="about svelte-4jwo3w"><a href="#top" class="brand svelte-4jwo3w"><img src="/logo.webp" alt="PocketMC" width="20" height="20" class="logo-img svelte-1l8nvlt" style="width: 20px; height: 20px;"/><!----> <span>PocketMC</span></a> <p class="svelte-4jwo3w">The local-first Minecraft server manager. Zero router setup, app-local Java provisioning,
+					and seamless cloud backups.</p></div> <div class="links svelte-4jwo3w"><div class="svelte-4jwo3w"><h3 class="svelte-4jwo3w">Site</h3> <a href="#steps" class="svelte-4jwo3w">Install</a> <a href="#about" class="svelte-4jwo3w">Features</a> <a href="#tour" class="svelte-4jwo3w">Showcase</a> <a href="#softwares" class="svelte-4jwo3w">Softwares</a> <a href="#comparison" class="svelte-4jwo3w">Comparison</a> <a href="/docs" class="svelte-4jwo3w">Docs</a> <a href="/faq" class="svelte-4jwo3w">FAQ</a></div> <div class="svelte-4jwo3w"><h3 class="svelte-4jwo3w">Project</h3> <a href="https://github.com/PocketMC/pocket-mc-windows" target="_blank" rel="noopener noreferrer" class="svelte-4jwo3w">GitHub (Windows)</a> <a href="https://github.com/PocketMC/pocket-mc-linux-mac" target="_blank" rel="noopener noreferrer" class="svelte-4jwo3w">GitHub (Linux/Mac)</a> <a href="https://github.com/PocketMC/pocket-mc-website" target="_blank" rel="noopener noreferrer" class="svelte-4jwo3w">Website Source</a> <a href="/changelog" class="svelte-4jwo3w">Changelog</a> <a href="/about" class="svelte-4jwo3w">About Us</a> <a href="/contact" class="svelte-4jwo3w">Contact</a></div> <div class="svelte-4jwo3w"><h3 class="svelte-4jwo3w">Community</h3> <a href="https://discord.gg/mWdMr8Mc2m" target="_blank" rel="noopener noreferrer" class="svelte-4jwo3w">Discord Server</a> <a href="https://www.reddit.com/r/PocketMC/" target="_blank" rel="noopener noreferrer" class="svelte-4jwo3w">Reddit Community</a> <a href="https://www.youtube.com/@OfficialPocketMC" target="_blank" rel="noopener noreferrer" class="svelte-4jwo3w">YouTube Channel</a> <a href="https://www.buymeacoffee.com/sahaj33" target="_blank" rel="noopener noreferrer" class="svelte-4jwo3w">Support Creator</a> <a href="https://github.com/PocketMC/pocket-mc-windows/issues" target="_blank" rel="noopener noreferrer" class="svelte-4jwo3w">Report Issue</a></div> <div class="svelte-4jwo3w"><h3 class="svelte-4jwo3w">Legal</h3> <a href="/terms" class="svelte-4jwo3w">Terms of Service</a> <a href="/privacy" class="svelte-4jwo3w">Privacy Policy</a> <a href="https://github.com/PocketMC/pocket-mc-windows/blob/master/LICENSE" target="_blank" rel="noopener noreferrer" class="svelte-4jwo3w">License (GPL-3.0)</a> <a href="mailto:contactdslabs@gmail.com" class="svelte-4jwo3w">Security Contact</a></div></div></div> <div class="legal svelte-4jwo3w"><p class="svelte-4jwo3w">PocketMC is free and open-source software licensed under the GNU General Public License v3.0.
+				NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</p> <p class="svelte-4jwo3w">Minecraft is a trademark of Mojang Synergies AB. All other trademarks, product names, and company
+				logos referenced on this website are the property of their respective owners.</p></div></div></footer><!----></div><!--]--><!--]--> <!--[-1--><!--]--><!--]-->
+			<script type="application/json" data-sveltekit-fetched data-url="https://api.github.com/repos/PocketMC/pocket-mc-windows">{"status":200,"statusText":"OK","headers":{},"body":"{\"id\":1210393014,\"node_id\":\"R_kgDOSCUhtg\",\"name\":\"pocket-mc-windows\",\"full_name\":\"PocketMC/pocket-mc-windows\",\"private\":false,\"owner\":{\"login\":\"PocketMC\",\"id\":275979528,\"node_id\":\"O_kgDOEHMdCA\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/275979528?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/PocketMC\",\"html_url\":\"https://github.com/PocketMC\",\"followers_url\":\"https://api.github.com/users/PocketMC/followers\",\"following_url\":\"https://api.github.com/users/PocketMC/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/PocketMC/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/PocketMC/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/PocketMC/subscriptions\",\"organizations_url\":\"https://api.github.com/users/PocketMC/orgs\",\"repos_url\":\"https://api.github.com/users/PocketMC/repos\",\"events_url\":\"https://api.github.com/users/PocketMC/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/PocketMC/received_events\",\"type\":\"Organization\",\"user_view_type\":\"public\",\"site_admin\":false},\"html_url\":\"https://github.com/PocketMC/pocket-mc-windows\",\"description\":\"Windows desktop app to locally host and manage Minecraft Java and Bedrock Edition servers without any mess.\",\"fork\":false,\"url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows\",\"forks_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/forks\",\"keys_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/keys{/key_id}\",\"collaborators_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/collaborators{/collaborator}\",\"teams_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/teams\",\"hooks_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/hooks\",\"issue_events_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/issues/events{/number}\",\"events_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/events\",\"assignees_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/assignees{/user}\",\"branches_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/branches{/branch}\",\"tags_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/tags\",\"blobs_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/git/blobs{/sha}\",\"git_tags_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/git/tags{/sha}\",\"git_refs_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/git/refs{/sha}\",\"trees_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/git/trees{/sha}\",\"statuses_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/statuses/{sha}\",\"languages_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/languages\",\"stargazers_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/stargazers\",\"contributors_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/contributors\",\"subscribers_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/subscribers\",\"subscription_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/subscription\",\"commits_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/commits{/sha}\",\"git_commits_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/git/commits{/sha}\",\"comments_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/comments{/number}\",\"issue_comment_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/issues/comments{/number}\",\"contents_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/contents/{+path}\",\"compare_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/compare/{base}...{head}\",\"merges_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/merges\",\"archive_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/{archive_format}{/ref}\",\"downloads_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/downloads\",\"issues_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/issues{/number}\",\"pulls_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/pulls{/number}\",\"milestones_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/milestones{/number}\",\"notifications_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/notifications{?since,all,participating}\",\"labels_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/labels{/name}\",\"releases_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/releases{/id}\",\"deployments_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/deployments\",\"created_at\":\"2026-04-14T11:23:09Z\",\"updated_at\":\"2026-10-16T20:07:54Z\",\"pushed_at\":\"2026-10-16T10:19:54Z\",\"git_url\":\"git://github.com/PocketMC/pocket-mc-windows.git\",\"ssh_url\":\"git@github.com:PocketMC/pocket-mc-windows.git\",\"clone_url\":\"https://github.com/PocketMC/pocket-mc-windows.git\",\"svn_url\":\"https://github.com/PocketMC/pocket-mc-windows\",\"homepage\":\"https://pocketmc.github.io\",\"size\":173272,\"stargazers_count\":32,\"watchers_count\":32,\"language\":\"C#\",\"has_issues\":true,\"has_projects\":true,\"has_downloads\":false,\"has_wiki\":true,\"has_pages\":false,\"has_discussions\":true,\"forks_count\":4,\"mirror_url\":null,\"archived\":false,\"disabled\":false,\"open_issues_count\":3,\"license\":{\"key\":\"mit\",\"name\":\"MIT License\",\"spdx_id\":\"MIT\",\"url\":\"https://api.github.com/licenses/mit\",\"node_id\":\"MDc6TGljZW5zZTEz\"},\"allow_forking\":true,\"is_template\":false,\"web_commit_signoff_required\":false,\"has_pull_requests\":true,\"pull_request_creation_policy\":\"all\",\"topics\":[\"bedrock-dedicated-server\",\"dotnet\",\"fabricmc\",\"forge-server\",\"minecraft\",\"minecraft-server\",\"neoforge-server\",\"papermc\",\"playit\",\"server-manager\",\"windows\",\"wpf\"],\"visibility\":\"public\",\"forks\":4,\"open_issues\":3,\"watchers\":32,\"default_branch\":\"master\",\"temp_clone_token\":null,\"custom_properties\":{},\"organization\":{\"login\":\"PocketMC\",\"id\":275979528,\"node_id\":\"O_kgDOEHMdCA\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/275979528?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/PocketMC\",\"html_url\":\"https://github.com/PocketMC\",\"followers_url\":\"https://api.github.com/users/PocketMC/followers\",\"following_url\":\"https://api.github.com/users/PocketMC/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/PocketMC/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/PocketMC/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/PocketMC/subscriptions\",\"organizations_url\":\"https://api.github.com/users/PocketMC/orgs\",\"repos_url\":\"https://api.github.com/users/PocketMC/repos\",\"events_url\":\"https://api.github.com/users/PocketMC/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/PocketMC/received_events\",\"type\":\"Organization\",\"user_view_type\":\"public\",\"site_admin\":false},\"network_count\":4,\"subscribers_count\":4}"}</script>
+			<script type="application/json" data-sveltekit-fetched data-url="https://api.github.com/repos/PocketMC/pocket-mc-windows/releases/latest">{"status":200,"statusText":"OK","headers":{},"body":"{\"url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/releases/399956058\",\"assets_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/releases/399956058/assets\",\"upload_url\":\"https://uploads.github.com/repos/PocketMC/pocket-mc-windows/releases/399956058/assets{?name,label}\",\"html_url\":\"https://github.com/PocketMC/pocket-mc-windows/releases/tag/v1.9.10\",\"id\":399956058,\"author\":{\"login\":\"github-actions[bot]\",\"id\":41898282,\"node_id\":\"MDM6Qm90NDE4OTgyODI=\",\"avatar_url\":\"https://avatars.githubusercontent.com/in/15368?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/github-actions%5Bbot%5D\",\"html_url\":\"https://github.com/apps/github-actions\",\"followers_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/followers\",\"following_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/subscriptions\",\"organizations_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/orgs\",\"repos_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/repos\",\"events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/received_events\",\"type\":\"Bot\",\"user_view_type\":\"public\",\"site_admin\":false},\"node_id\":\"RE_kwDOSCUhts4X1tha\",\"tag_name\":\"v1.9.10\",\"target_commitish\":\"master\",\"name\":\"PocketMC v1.9.10\",\"draft\":false,\"immutable\":false,\"prerelease\":false,\"created_at\":\"2026-09-30T10:49:57Z\",\"updated_at\":\"2026-09-30T10:57:16Z\",\"published_at\":\"2026-09-30T10:57:16Z\",\"assets\":[{\"url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/releases/assets/600701865\",\"id\":600701865,\"node_id\":\"RA_kwDOSCUhts4jzfup\",\"name\":\"assets.win.json\",\"label\":\"\",\"uploader\":{\"login\":\"github-actions[bot]\",\"id\":41898282,\"node_id\":\"MDM6Qm90NDE4OTgyODI=\",\"avatar_url\":\"https://avatars.githubusercontent.com/in/15368?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/github-actions%5Bbot%5D\",\"html_url\":\"https://github.com/apps/github-actions\",\"followers_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/followers\",\"following_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/subscriptions\",\"organizations_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/orgs\",\"repos_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/repos\",\"events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/received_events\",\"type\":\"Bot\",\"user_view_type\":\"public\",\"site_admin\":false},\"content_type\":\"application/json\",\"state\":\"uploaded\",\"size\":263,\"digest\":\"sha256:3103e133daca00982c370cbbd0766df20bcf08171f949ff2e2993deb679e3cfa\",\"download_count\":6,\"created_at\":\"2026-09-30T10:57:13Z\",\"updated_at\":\"2026-09-30T10:57:13Z\",\"browser_download_url\":\"https://github.com/PocketMC/pocket-mc-windows/releases/download/v1.9.10/assets.win.json\"},{\"url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/releases/assets/600701869\",\"id\":600701869,\"node_id\":\"RA_kwDOSCUhts4jzfut\",\"name\":\"PocketMC-1.9.10-delta.nupkg\",\"label\":\"\",\"uploader\":{\"login\":\"github-actions[bot]\",\"id\":41898282,\"node_id\":\"MDM6Qm90NDE4OTgyODI=\",\"avatar_url\":\"https://avatars.githubusercontent.com/in/15368?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/github-actions%5Bbot%5D\",\"html_url\":\"https://github.com/apps/github-actions\",\"followers_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/followers\",\"following_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/subscriptions\",\"organizations_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/orgs\",\"repos_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/repos\",\"events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/received_events\",\"type\":\"Bot\",\"user_view_type\":\"public\",\"site_admin\":false},\"content_type\":\"application/octet-stream\",\"state\":\"uploaded\",\"size\":2655144,\"digest\":\"sha256:532a05b4abe1bc87a4411288e6d1773cd15cdd847fc10e8bc6d81f764de040d7\",\"download_count\":211,\"created_at\":\"2026-09-30T10:57:13Z\",\"updated_at\":\"2026-09-30T10:57:14Z\",\"browser_download_url\":\"https://github.com/PocketMC/pocket-mc-windows/releases/download/v1.9.10/PocketMC-1.9.10-delta.nupkg\"},{\"url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/releases/assets/600701871\",\"id\":600701871,\"node_id\":\"RA_kwDOSCUhts4jzfuv\",\"name\":\"PocketMC-1.9.10-full.nupkg\",\"label\":\"\",\"uploader\":{\"login\":\"github-actions[bot]\",\"id\":41898282,\"node_id\":\"MDM6Qm90NDE4OTgyODI=\",\"avatar_url\":\"https://avatars.githubusercontent.com/in/15368?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/github-actions%5Bbot%5D\",\"html_url\":\"https://github.com/apps/github-actions\",\"followers_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/followers\",\"following_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/subscriptions\",\"organizations_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/orgs\",\"repos_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/repos\",\"events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/received_events\",\"type\":\"Bot\",\"user_view_type\":\"public\",\"site_admin\":false},\"content_type\":\"application/octet-stream\",\"state\":\"uploaded\",\"size\":38563334,\"digest\":\"sha256:ebec330eae0de3755dc51a78b0a9d995dbac13fd4e2a5af0e257bbd7cce7039a\",\"download_count\":128,\"created_at\":\"2026-09-30T10:57:13Z\",\"updated_at\":\"2026-09-30T10:57:15Z\",\"browser_download_url\":\"https://github.com/PocketMC/pocket-mc-windows/releases/download/v1.9.10/PocketMC-1.9.10-full.nupkg\"},{\"url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/releases/assets/600701872\",\"id\":600701872,\"node_id\":\"RA_kwDOSCUhts4jzfuw\",\"name\":\"PocketMC-win-Portable.zip\",\"label\":\"\",\"uploader\":{\"login\":\"github-actions[bot]\",\"id\":41898282,\"node_id\":\"MDM6Qm90NDE4OTgyODI=\",\"avatar_url\":\"https://avatars.githubusercontent.com/in/15368?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/github-actions%5Bbot%5D\",\"html_url\":\"https://github.com/apps/github-actions\",\"followers_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/followers\",\"following_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/subscriptions\",\"organizations_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/orgs\",\"repos_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/repos\",\"events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/received_events\",\"type\":\"Bot\",\"user_view_type\":\"public\",\"site_admin\":false},\"content_type\":\"application/zip\",\"state\":\"uploaded\",\"size\":38486476,\"digest\":\"sha256:0032bf4af3e31af3181120e7d29253d49d2ff05eb5da3adf826dcc322ec61e49\",\"download_count\":18,\"created_at\":\"2026-09-30T10:57:13Z\",\"updated_at\":\"2026-09-30T10:57:15Z\",\"browser_download_url\":\"https://github.com/PocketMC/pocket-mc-windows/releases/download/v1.9.10/PocketMC-win-Portable.zip\"},{\"url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/releases/assets/600701868\",\"id\":600701868,\"node_id\":\"RA_kwDOSCUhts4jzfus\",\"name\":\"PocketMC-win-Setup.exe\",\"label\":\"\",\"uploader\":{\"login\":\"github-actions[bot]\",\"id\":41898282,\"node_id\":\"MDM6Qm90NDE4OTgyODI=\",\"avatar_url\":\"https://avatars.githubusercontent.com/in/15368?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/github-actions%5Bbot%5D\",\"html_url\":\"https://github.com/apps/github-actions\",\"followers_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/followers\",\"following_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/subscriptions\",\"organizations_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/orgs\",\"repos_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/repos\",\"events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/received_events\",\"type\":\"Bot\",\"user_view_type\":\"public\",\"site_admin\":false},\"content_type\":\"application/x-msdos-program\",\"state\":\"uploaded\",\"size\":46154246,\"digest\":\"sha256:f05bb2a0628b4ad32fa9254d7b0bde6ad64b3c94a0380b83bc31d2c12f4ff17a\",\"download_count\":492,\"created_at\":\"2026-09-30T10:57:13Z\",\"updated_at\":\"2026-09-30T10:57:15Z\",\"browser_download_url\":\"https://github.com/PocketMC/pocket-mc-windows/releases/download/v1.9.10/PocketMC-win-Setup.exe\"},{\"url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/releases/assets/600701870\",\"id\":600701870,\"node_id\":\"RA_kwDOSCUhts4jzfuu\",\"name\":\"RELEASES\",\"label\":\"\",\"uploader\":{\"login\":\"github-actions[bot]\",\"id\":41898282,\"node_id\":\"MDM6Qm90NDE4OTgyODI=\",\"avatar_url\":\"https://avatars.githubusercontent.com/in/15368?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/github-actions%5Bbot%5D\",\"html_url\":\"https://github.com/apps/github-actions\",\"followers_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/followers\",\"following_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/subscriptions\",\"organizations_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/orgs\",\"repos_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/repos\",\"events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/received_events\",\"type\":\"Bot\",\"user_view_type\":\"public\",\"site_admin\":false},\"content_type\":\"application/octet-stream\",\"state\":\"uploaded\",\"size\":155,\"digest\":\"sha256:b5664d6862f74c7fea4ab90d31aec493e90bc1589f71a26bfa39a067e4116ef8\",\"download_count\":10,\"created_at\":\"2026-09-30T10:57:13Z\",\"updated_at\":\"2026-09-30T10:57:13Z\",\"browser_download_url\":\"https://github.com/PocketMC/pocket-mc-windows/releases/download/v1.9.10/RELEASES\"},{\"url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/releases/assets/600701867\",\"id\":600701867,\"node_id\":\"RA_kwDOSCUhts4jzfur\",\"name\":\"releases.win.json\",\"label\":\"\",\"uploader\":{\"login\":\"github-actions[bot]\",\"id\":41898282,\"node_id\":\"MDM6Qm90NDE4OTgyODI=\",\"avatar_url\":\"https://avatars.githubusercontent.com/in/15368?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/github-actions%5Bbot%5D\",\"html_url\":\"https://github.com/apps/github-actions\",\"followers_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/followers\",\"following_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/subscriptions\",\"organizations_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/orgs\",\"repos_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/repos\",\"events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/github-actions%5Bbot%5D/received_events\",\"type\":\"Bot\",\"user_view_type\":\"public\",\"site_admin\":false},\"content_type\":\"application/json\",\"state\":\"uploaded\",\"size\":970,\"digest\":\"sha256:764017321632ad25300b39bf59d2318d11d56f7d8659fa00bb0c7d037c0ad98b\",\"download_count\":2340,\"created_at\":\"2026-09-30T10:57:13Z\",\"updated_at\":\"2026-09-30T10:57:13Z\",\"browser_download_url\":\"https://github.com/PocketMC/pocket-mc-windows/releases/download/v1.9.10/releases.win.json\"}],\"tarball_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/tarball/v1.9.10\",\"zipball_url\":\"https://api.github.com/repos/PocketMC/pocket-mc-windows/zipball/v1.9.10\",\"body\":\"### Summary\\r\\n\\r\\nv1.9.10 adds an in-app News page with cached announcements and unread popups, extends local Ollama model management, validates and repairs the Playit runtime, and migrates settings without replacing existing user preferences. It also corrects restoration of maximized windows.\\r\\n\\r\\n### Diff Basis\\r\\n\\r\\nCompared the `v1.9.9` tag (`216b174`) with candidate source commit `af12ea6`. Temporary news showcase files added during development were removed before this endpoint and are not included as release content.\\r\\n\\r\\n### Added\\r\\n\\r\\n- **Remote News page and notifications**\\r\\n  - Added a News page, native article renderer, and popup window for PocketMC announcements and service notices.\\r\\n  - Added background synchronization at startup and every six hours, plus manual refresh. Eligible news is cached under the PocketMC local-data directory and remains available offline.\\r\\n  - Added unread counts, local read acknowledgement, and metadata-controlled unread popups. Read state is written to the local cached article, not the repository copy.\\r\\n- **Remote News format and validation**\\r\\n  - Added a plain-text format with required metadata, version and expiry filters, and title, subtitle, heading, paragraph, list, warning, important, code, link, and divider content elements.\\r\\n  - Remote names, metadata, content size, download URLs, and Git blob hashes are checked before eligible articles are cached; HTML and executable content are not rendered or run.\\r\\n\\r\\n### Changed\\r\\n\\r\\n- **Ollama Model Manager**\\r\\n  - Reorganized local model management into Installed, Download, and Manual tabs.\\r\\n  - Added local model deletion through Ollama's `/api/delete` endpoint. Installed local models can be selected; recommended and custom model pulls show progress and can be canceled.\\r\\n  - Kept cloud model selection in App Settings and hid local download/manual-install controls in cloud mode.\\r\\n- **Settings persistence and migration**\\r\\n  - Added a version-3, sectioned camelCase `settings.json` representation while leaving the runtime `AppSettings` API and portable backup package version 1 unchanged.\\r\\n  - Kept PascalCase compatibility properties for released builds and a sectioned sidecar snapshot so known changes from older builds can be merged without discarding newer fields.\\r\\n  - Preserved unknown fields and protected credential payloads during conversion. DPAPI protection now leaves already protected v1/v2 payloads intact.\\r\\n  - Existing version-1 PocketMC backups remain restorable and are written through the current settings serializer. Future or malformed settings/backup formats are rejected or protected from overwrite rather than silently downgraded.\\r\\n\\r\\n### Fixed\\r\\n\\r\\n- **Appearance preservation during settings migration**\\r\\n  - One-time appearance flags are marked complete without replacing a completed user's saved backdrop, accent color, or wallpaper path with defaults.\\r\\n- **Maximized-window restoration**\\r\\n  - Deferred applying the saved maximized state until after the native window handle and sizing hook are installed. A saved maximized window is no longer restored as a large normal window when its saved dimensions match the work area.\\r\\n\\r\\n### Improved\\r\\n\\r\\n- **Playit runtime compatibility and repair**\\r\\n  - PocketMC checks the installed agent runtime during startup and before connection. It attempts to repair missing, corrupt, or unsupported copies before the agent starts; existing agent credentials are retained.\\r\\n  - Runtime replacement is staged and validated before promotion. The existing executable is backed up and restored if post-install verification fails.\\r\\n\\r\\n### Build & Release\\r\\n\\r\\n- Moved the Playit download URL and expected SHA-256 out of `pocketmc.yml` and `AppConfig` into `PlayitRuntimeManifest`, alongside the minimum supported version and platform filename. The application configuration no longer supplies a default release channel.\\r\\n\\r\\n### Tests\\r\\n\\r\\n- Added tests for News metadata/content parsing, remote synchronization and caching, and local read-state handling.\\r\\n- Added Ollama model API tests, including deletion and pull behavior, and Playit runtime compatibility and failed-download-preservation tests.\\r\\n- Expanded settings and credential tests for sectioned migration, legacy-build merging, future/corrupt format protection, backup restore, and idempotent DPAPI protection.\\r\\n\\r\\n### Documentation\\r\\n\\r\\n- Added a remote News publishing guide covering metadata, supported content, synchronization, cache, and read-state behavior; updated Playit runtime documentation.\\r\\n- Refreshed README feature descriptions, screenshots, and the demonstration video link.\"}"}</script>
+			<script>
+				{
+					__sveltekit_1qsgbeh = {
+						base: new URL(".", location).pathname.slice(0, -1)
+					};
 
-        <!-- Twitter Card -->
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-            name="twitter:title"
-            content="PocketMC - The #1 Free Local Minecraft Server Manager"
-        />
-        <meta
-            name="twitter:description"
-            content="The highest-rated free, open-source Minecraft server manager. Run Java &amp; Bedrock servers locally with zero port forwarding, Adoptium Java runtimes, Ollama AI model management, multi-user remote control, and automated cloud backups."
-        />
-        <meta
-            name="twitter:image"
-            content="https://pocketmc.github.io/screenshots/screenshot-dashboard.webp"
-        />
-        <meta
-            name="twitter:image:alt"
-            content="PocketMC dashboard screenshot"
-        />
+					const element = document.currentScript.parentElement;
 
-        <!-- Structured Data Graph: SoftwareApplication, Organization, WebSite, FAQPage, VideoObject -->
-        <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@graph": [
-                {
-                    "@type": "SoftwareApplication",
-                    "@id": "https://pocketmc.github.io/#software",
-                    "name": "PocketMC",
-                    "alternateName": ["Pocket MC", "PocketMC Server Manager", "Pocket-MC"],
-                    "operatingSystem": "Windows 10, Windows 11, Linux, macOS",
-                    "applicationCategory": "UtilityApplication",
-                    "applicationSubCategory": "Minecraft Server Manager",
-                    "offers": {
-                        "@type": "Offer",
-                        "price": "0.00",
-                        "priceCurrency": "USD",
-                        "availability": "https://schema.org/InStock"
-                    },
-                    "aggregateRating": {
-                        "@type": "AggregateRating",
-                        "ratingValue": "4.9",
-                        "ratingCount": "156",
-                        "bestRating": "5",
-                        "worstRating": "1"
-                    },
-                    "award": "Best Free Open-Source Minecraft Server Manager",
-                    "description": "PocketMC is the top-rated, free, local-first Minecraft server manager for Windows, Linux, and macOS. It installs Java runtimes locally via Adoptium, provisions Playit.gg tunnels with zero port forwarding and a dedicated binary console, provides a built-in Ollama Model Manager for offline and cloud AI log summaries, manages multi-user remote control accounts with granular permissions, schedules automated reboots with in-game warnings, automates cloud backups to Google Drive, Dropbox, and OneDrive, and supports GeyserMC cross-play between Java and Bedrock editions.",
-                    "featureList": [
-                        "Automatic Adoptium JRE runtime management (Java 8, 11, 17, 21, 25)",
-                        "Built-in Ollama Model Manager for local & cloud AI log summaries (zero mandatory API keys)",
-                        "Multi-user Remote Control Web Dashboard with granular role permissions (Console, Player Actions, Settings, Add-ons, Files)",
-                        "Dedicated Playit.gg agent v1.0.10 binary console with colorized log filtering and zero port forwarding",
-                        "Automated scheduled server reboots with staged in-game countdown warnings",
-                        "Modrinth and CurseForge integrated mod & plugin marketplaces with three-dot explorer navigation",
-                        "Automated local and cloud backups (Google Drive, Dropbox, OneDrive) with SHA-256 integrity verification",
-                        "GeyserMC and Floodgate cross-play support detection",
-                        "Colorized real-time console with persistent AI session summaries and player tracking",
-                        "Real-time CPU, RAM, and hardware-accelerated 120Hz/144Hz/240Hz UI rendering"
-                    ],
-                    "downloadUrl": "https://github.com/PocketMC/pocket-mc-windows/releases/latest/download/PocketMC-win-Setup.exe",
-                    "softwareVersion": "1.9.9",
-                    "license": "https://github.com/PocketMC/pocket-mc-windows/blob/main/LICENSE",
-                    "author": [
-                        {
-                            "@type": "Person",
-                            "name": "sizwinz",
-                            "url": "https://github.com/sizwinz"
-                        },
-                        {
-                            "@type": "Person",
-                            "name": "divyviradiya2",
-                            "url": "https://github.com/divyviradiya2"
-                        }
-                    ],
-                    "publisher": {
-                        "@id": "https://pocketmc.github.io/#organization"
-                    },
-                    "url": "https://pocketmc.github.io/",
-                    "screenshot": "https://pocketmc.github.io/screenshots/screenshot-dashboard.webp",
-                    "sameAs": [
-                        "https://github.com/PocketMC",
-                        "https://github.com/PocketMC/pocket-mc-windows",
-                        "https://github.com/PocketMC/pocket-mc-website",
-                        "https://discord.gg/mWdMr8Mc2m"
-                    ]
-                },
-                {
-                    "@type": "Organization",
-                    "@id": "https://pocketmc.github.io/#organization",
-                    "name": "PocketMC",
-                    "alternateName": "PocketMC Project",
-                    "url": "https://pocketmc.github.io/",
-                    "logo": "https://pocketmc.github.io/logo.webp",
-                    "description": "Open-source developer team building local-first Minecraft server management tools, automated runtime orchestrators, and network tunneling bridges.",
-                    "sameAs": [
-                        "https://github.com/PocketMC",
-                        "https://github.com/PocketMC/pocket-mc-windows",
-                        "https://github.com/PocketMC/pocket-mc-website",
-                        "https://discord.gg/mWdMr8Mc2m"
-                    ],
-                    "contactPoint": [
-                        {
-                            "@type": "ContactPoint",
-                            "contactType": "technical support",
-                            "email": "contactdslabs@gmail.com",
-                            "url": "https://discord.gg/mWdMr8Mc2m",
-                            "availableLanguage": ["English"]
-                        },
-                        {
-                            "@type": "ContactPoint",
-                            "contactType": "customer service",
-                            "email": "contactdslabs@gmail.com",
-                            "url": "https://github.com/PocketMC/pocket-mc-windows/issues",
-                            "availableLanguage": ["English"]
-                        }
-                    ],
-                    "address": {
-                        "@type": "PostalAddress",
-                        "addressCountry": "US",
-                        "addressRegion": "Delaware",
-                        "addressLocality": "Wilmington"
-                    },
-                    "founder": [
-                        {
-                            "@type": "Person",
-                            "name": "sizwinz",
-                            "url": "https://github.com/sizwinz"
-                        },
-                        {
-                            "@type": "Person",
-                            "name": "divyviradiya2",
-                            "url": "https://github.com/divyviradiya2"
-                        }
-                    ]
-                },
-                {
-                    "@type": "WebSite",
-                    "@id": "https://pocketmc.github.io/#website",
-                    "url": "https://pocketmc.github.io/",
-                    "name": "PocketMC",
-                    "description": "Official showcase and landing page for PocketMC, the free local Minecraft server manager.",
-                    "publisher": {
-                        "@id": "https://pocketmc.github.io/#organization"
-                    },
-                    "inLanguage": "en-US"
-                },
-                {
-                    "@type": "FAQPage",
-                    "@id": "https://pocketmc.github.io/#faq",
-                    "mainEntity": [
-                        {
-                            "@type": "Question",
-                            "name": "How do my friends join the server, and how can I manage it remotely?",
-                            "acceptedAnswer": {
-                                "@type": "Answer",
-                                "text": "PocketMC supports remote access for both gaming and administration: (1) For Players (Joining Minecraft): Use the built-in Playit.gg tunnel agent. It routes your local port to a public address (e.g., example.playit.gg) without any router configuration. Friends can copy this address directly into Minecraft to join. (2) For Admins (Managing Remotely): Enable the Remote Control Dashboard in settings. This hosts a secure, password-protected web panel accessible over LAN or internet (via Playit.gg HTTPS or Cloudflare Quick Tunnels). You can pair your phone instantly by scanning the dashboard's QR code or link the PocketMC Discord Bot to DM you access tokens."
-                            }
-                        },
-                        {
-                            "@type": "Question",
-                            "name": "Does PocketMC require Windows administrator privileges?",
-                            "acceptedAnswer": {
-                                "@type": "Answer",
-                                "text": "No. PocketMC runs entirely in user-space and installs per-user. It downloads Adoptium JRE runtimes locally and maps isolated instance directories without requiring administrative elevation or polluting your Windows system environment variables."
-                            }
-                        },
-                        {
-                            "@type": "Question",
-                            "name": "Do I need to install Java or PHP on my computer beforehand?",
-                            "acceptedAnswer": {
-                                "@type": "Answer",
-                                "text": "No. PocketMC manages all runtimes locally. It automatically provisions the correct Adoptium Java version (8, 11, 17, 21, or 25) based on your Minecraft server type and version. For Bedrock PocketMine-MP servers, it installs an app-local, optimized PHP 8.2 runtime automatically."
-                            }
-                        },
-                        {
-                            "@type": "Question",
-                            "name": "How does Playit.gg tunneling work? Do I need to configure port forwarding?",
-                            "acceptedAnswer": {
-                                "@type": "Answer",
-                                "text": "Zero router configuration is required. PocketMC features an integrated Playit.gg agent setup wizard. Once paired, it automatically provisions background agent processes, maps local ports (Java, Bedrock, Geyser, PocketMine, and Simple Voice Chat), and creates public addresses for your players."
-                            }
-                        },
-                        {
-                            "@type": "Question",
-                            "name": "Can Bedrock (console/mobile) players join a Java server managed by PocketMC?",
-                            "acceptedAnswer": {
-                                "@type": "Answer",
-                                "text": "Yes. PocketMC supports automatic GeyserMC and Floodgate setup during server creation for supported Java server loaders. It also scans your mod/plugin folders to verify cross-play status and displays active cross-play indicators on your dashboard."
-                            }
-                        },
-                        {
-                            "@type": "Question",
-                            "name": "Where are my server files stored and how secure are the backups?",
-                            "acceptedAnswer": {
-                                "@type": "Answer",
-                                "text": "All server files are stored 100% locally on your machine in the root folder you select. PocketMC's built-in backup engine locks active servers using RCON save-holding before copying, skips lock files like session.lock to avoid conflicts, and offers secure, OAuth-based replication directly to Google Drive, Dropbox, and OneDrive."
-                            }
-                        },
-                        {
-                            "@type": "Question",
-                            "name": "Can I import existing worlds or custom Bedrock add-ons?",
-                            "acceptedAnswer": {
-                                "@type": "Answer",
-                                "text": "Yes. You can import existing world folders directly, place custom JAR files, or ingest Bedrock .mcpack, .mcaddon, and world .zip files. PocketMC automatically parses manifests, maps dependency requirements, and registers packs."
-                            }
-                        },
-                        {
-                            "@type": "Question",
-                            "name": "Are my server logs shared with third-party AI systems?",
-                            "acceptedAnswer": {
-                                "@type": "Answer",
-                                "text": "Only if you explicitly configure an AI provider and request a log summary. PocketMC pre-processes and sanitizes all logs locally (automatically scrubbing IP addresses, emails, and personal info) before sending them to your provider of choice (Google Gemini, OpenAI, Claude, Mistral, Groq, or local Ollama)."
-                            }
-                        },
-                        {
-                            "@type": "Question",
-                            "name": "Will my server stay online if my Windows PC goes to sleep?",
-                            "acceptedAnswer": {
-                                "@type": "Answer",
-                                "text": "PocketMC includes native Windows power integration that automatically prevents your PC from entering sleep mode while any Minecraft server instance is actively running. Once all servers are stopped, standard Windows power saving behaviors resume."
-                            }
-                        }
-                    ]
-                },
-                {
-                    "@type": "VideoObject",
-                    "@id": "https://pocketmc.github.io/#video",
-                    "name": "PocketMC - Local Minecraft Server Manager Showcase",
-                    "description": "Watch how PocketMC automates Minecraft server setup on Windows in under 50 seconds: local Adoptium Java runtimes, Playit.gg zero port forwarding tunnels, modpack management, automated backups, and mobile remote control.",
-                    "thumbnailUrl": [
-                        "https://img.youtube.com/vi/UIcUHqeMCrI/maxresdefault.jpg",
-                        "https://pocketmc.github.io/screenshots/screenshot-dashboard.webp"
-                    ],
-                    "uploadDate": "2026-07-28T00:00:00+00:00",
-                    "contentUrl": "https://www.youtube.com/watch?v=UIcUHqeMCrI",
-                    "embedUrl": "https://www.youtube.com/embed/UIcUHqeMCrI"
-                }
-            ]
-        }
-        </script>
-      <script type="module" crossorigin src="/assets/index-CjsltAuy.js"></script>
-      <link rel="stylesheet" crossorigin href="/assets/index-CH1_E2eA.css">
-    </head>
-    <body>
-        <div id="root">
-            <!-- Non-JavaScript Crawlable Content & Semantic Pre-Render Fallback -->
-            <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1100px; margin: 0 auto; padding: 24px; color: #e4e4e7; background-color: #09090b; line-height: 1.6;">
-                <header style="border-bottom: 1px solid #27272a; padding-bottom: 16px; margin-bottom: 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
-                    <div>
-                        <a href="https://pocketmc.github.io/" style="font-size: 20px; font-weight: 700; color: #ffffff; text-decoration: none;">PocketMC</a>
-                        <span style="font-size: 13px; color: #a1a1aa; margin-left: 8px;">Free Local Minecraft Server Manager</span>
-                    </div>
-                    <nav style="display: flex; gap: 16px; font-size: 14px;">
-                        <a href="#features" style="color: #a1a1aa; text-decoration: none;">Features</a>
-                        <a href="#softwares" style="color: #a1a1aa; text-decoration: none;">Softwares</a>
-                        <a href="#comparison" style="color: #a1a1aa; text-decoration: none;">Comparison</a>
-                        <a href="#faq" style="color: #a1a1aa; text-decoration: none;">FAQ</a>
-                        <a href="https://pocketmc.github.io/about/" style="color: #a1a1aa; text-decoration: none;">About</a>
-                        <a href="https://pocketmc.github.io/contact/" style="color: #a1a1aa; text-decoration: none;">Contact</a>
-                        <a href="https://pocketmc.github.io/docs/" style="color: #a1a1aa; text-decoration: none;">Docs</a>
-                    </nav>
-                </header>
-
-                <main>
-                    <section id="hero" style="margin-bottom: 48px;">
-                        <h1 style="font-size: 36px; font-weight: 800; color: #ffffff; margin-bottom: 16px; line-height: 1.2;">PocketMC - The #1 Free Local Minecraft Server Manager for Windows, Linux &amp; Mac</h1>
-                        <p style="font-size: 18px; color: #d4d4d8; margin-bottom: 24px;">
-                            Run Minecraft Java &amp; Bedrock servers directly on your own computer with zero router configuration, automated Java runtimes from Eclipse Adoptium, integrated Playit.gg tunnels, CurseForge &amp; Modrinth marketplace browsers, scheduled cloud backups, and smartphone remote control.
-                        </p>
-                        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px;">
-                            <a href="https://github.com/PocketMC/pocket-mc-windows/releases/latest/download/PocketMC-win-Setup.exe" style="background-color: #ffffff; color: #000000; padding: 12px 24px; font-weight: 700; border-radius: 6px; text-decoration: none;">Download PocketMC for Windows (Setup.exe)</a>
-                            <a href="https://github.com/PocketMC/pocket-mc-windows/releases/latest" style="background-color: #27272a; color: #ffffff; padding: 12px 24px; font-weight: 600; border-radius: 6px; text-decoration: none;">All Platform Releases (Linux / Mac / Windows)</a>
-                            <a href="https://pocketmc.github.io/llms.txt" style="background-color: #18181b; color: #a1a1aa; padding: 12px 20px; font-weight: 600; border-radius: 6px; text-decoration: none; border: 1px solid #27272a;">LLM Agent Guide (llms.txt)</a>
-                        </div>
-                    </section>
-
-                    <section id="features" style="margin-bottom: 48px;">
-                        <h2 style="font-size: 24px; font-weight: 700; color: #ffffff; margin-bottom: 16px; border-bottom: 1px solid #27272a; padding-bottom: 8px;">Core Capabilities &amp; Key Features (v1.9.9)</h2>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-                            <article style="background-color: #18181b; padding: 20px; border-radius: 8px; border: 1px solid #27272a;">
-                                <h3 style="font-size: 18px; font-weight: 600; color: #ffffff; margin-bottom: 8px;">Automated Adoptium JRE Provisioning</h3>
-                                <p style="font-size: 14px; color: #a1a1aa;">Eliminates Java version conflicts. PocketMC detects your server requirement and automatically installs and manages isolated Eclipse Adoptium Java 8, 11, 17, 21, and 25 runtimes locally without polluting system variables.</p>
-                            </article>
-                            <article style="background-color: #18181b; padding: 20px; border-radius: 8px; border: 1px solid #27272a;">
-                                <h3 style="font-size: 18px; font-weight: 600; color: #ffffff; margin-bottom: 8px;">Zero-Port-Forwarding Playit.gg Tunnels</h3>
-                                <p style="font-size: 14px; color: #a1a1aa;">No router logins, CGNAT bypass issues, or firewall reconfigurations required. Includes embedded Playit agent v1.0.10, an interactive ports map, and a dedicated live binary console window with search filtering.</p>
-                            </article>
-                            <article style="background-color: #18181b; padding: 20px; border-radius: 8px; border: 1px solid #27272a;">
-                                <h3 style="font-size: 18px; font-weight: 600; color: #ffffff; margin-bottom: 8px;">Built-in Ollama Model Manager</h3>
-                                <p style="font-size: 14px; color: #a1a1aa;">Discover local Ollama daemons, pull models with live byte-level progress and speeds, manage model weights, and generate persistent in-memory AI session summaries with zero mandatory API keys.</p>
-                            </article>
-                            <article style="background-color: #18181b; padding: 20px; border-radius: 8px; border: 1px solid #27272a;">
-                                <h3 style="font-size: 18px; font-weight: 600; color: #ffffff; margin-bottom: 8px;">Granular Multi-User Remote Control</h3>
-                                <p style="font-size: 14px; color: #a1a1aa;">Manage multiple user accounts with independent permission scopes for Console, Player Actions, Server Settings, Add-ons, and File Manager over local LAN, Playit HTTPS, or Cloudflare tunnels.</p>
-                            </article>
-                            <article style="background-color: #18181b; padding: 20px; border-radius: 8px; border: 1px solid #27272a;">
-                                <h3 style="font-size: 18px; font-weight: 600; color: #ffffff; margin-bottom: 8px;">Modrinth &amp; CurseForge Marketplaces</h3>
-                                <p style="font-size: 14px; color: #a1a1aa;">Search, browse, and install thousands of Minecraft mods, plugins, datapacks, and Bedrock add-ons directly with three-dot context menus and direct Windows Explorer directory navigation.</p>
-                            </article>
-                            <article style="background-color: #18181b; padding: 20px; border-radius: 8px; border: 1px solid #27272a;">
-                                <h3 style="font-size: 18px; font-weight: 600; color: #ffffff; margin-bottom: 8px;">OAuth Cloud &amp; Local Backups</h3>
-                                <p style="font-size: 14px; color: #a1a1aa;">Automated backup engine holds RCON saves, skips lock files, performs SHA-256 integrity verification, and replicates world archives directly to Google Drive, Dropbox, or OneDrive.</p>
-                            </article>
-                            <article style="background-color: #18181b; padding: 20px; border-radius: 8px; border: 1px solid #27272a;">
-                                <h3 style="font-size: 18px; font-weight: 600; color: #ffffff; margin-bottom: 8px;">Scheduled Server Reboots</h3>
-                                <p style="font-size: 14px; color: #a1a1aa;">Automate daily maintenance or recurring hourly reboots with staged in-game countdown warnings (say) and cancellable timer controls to keep long-running worlds stable.</p>
-                            </article>
-                            <article style="background-color: #18181b; padding: 20px; border-radius: 8px; border: 1px solid #27272a;">
-                                <h3 style="font-size: 18px; font-weight: 600; color: #ffffff; margin-bottom: 8px;">Mobile Remote Web Dashboard</h3>
-                                <p style="font-size: 14px; color: #a1a1aa;">Monitor live CPU/RAM metrics, stream sanitized console logs, execute commands, and control server instances from mobile browsers with QR code pairing and Discord bot notifications.</p>
-                            </article>
-                            <article style="background-color: #18181b; padding: 20px; border-radius: 8px; border: 1px solid #27272a;">
-                                <h3 style="font-size: 18px; font-weight: 600; color: #ffffff; margin-bottom: 8px;">GeyserMC Java &amp; Bedrock Crossplay</h3>
-                                <p style="font-size: 14px; color: #a1a1aa;">Built-in Geyser and Floodgate integration allows Bedrock players on iOS, Android, Xbox, PlayStation, and Nintendo Switch to join your local Java server seamlessly.</p>
-                            </article>
-                        </div>
-                    </section>
-
-                    <section id="softwares" style="margin-bottom: 48px;">
-                        <h2 style="font-size: 24px; font-weight: 700; color: #ffffff; margin-bottom: 16px; border-bottom: 1px solid #27272a; padding-bottom: 8px;">Supported Server Software Engines</h2>
-                        <ul style="list-style-type: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; font-size: 14px;">
-                            <li style="background-color: #18181b; padding: 12px 16px; border-radius: 6px; border: 1px solid #27272a;"><strong style="color: #ffffff;">PaperMC</strong> - High-performance Paper server builds (1.8.8 to latest)</li>
-                            <li style="background-color: #18181b; padding: 12px 16px; border-radius: 6px; border: 1px solid #27272a;"><strong style="color: #ffffff;">Vanilla Java</strong> - Official Mojang Minecraft server JARs</li>
-                            <li style="background-color: #18181b; padding: 12px 16px; border-radius: 6px; border: 1px solid #27272a;"><strong style="color: #ffffff;">Fabric</strong> - Modular lightweight modern modding framework</li>
-                            <li style="background-color: #18181b; padding: 12px 16px; border-radius: 6px; border: 1px solid #27272a;"><strong style="color: #ffffff;">Forge</strong> - Traditional modding ecosystem with automated installer support</li>
-                            <li style="background-color: #18181b; padding: 12px 16px; border-radius: 6px; border: 1px solid #27272a;"><strong style="color: #ffffff;">NeoForge</strong> - Modern community fork of Forge with automated Maven builds</li>
-                            <li style="background-color: #18181b; padding: 12px 16px; border-radius: 6px; border: 1px solid #27272a;"><strong style="color: #ffffff;">Bedrock BDS</strong> - Official Mojang Bedrock Dedicated Server binaries</li>
-                            <li style="background-color: #18181b; padding: 12px 16px; border-radius: 6px; border: 1px solid #27272a;"><strong style="color: #ffffff;">PocketMine-MP</strong> - PHP 8.2 optimized Bedrock server engine</li>
-                        </ul>
-                    </section>
-
-                    <section id="comparison" style="margin-bottom: 48px;">
-                        <h2 style="font-size: 24px; font-weight: 700; color: #ffffff; margin-bottom: 16px; border-bottom: 1px solid #27272a; padding-bottom: 8px;">PocketMC vs Alternative Server Management Solutions</h2>
-                        <div style="overflow-x: auto;">
-                            <table style="width: 100%; border-collapse: collapse; font-size: 14px; text-align: left;">
-                                <thead>
-                                    <tr style="border-bottom: 2px solid #27272a; color: #ffffff;">
-                                        <th style="padding: 10px;">Feature</th>
-                                        <th style="padding: 10px; color: #ffffff; font-weight: 700;">PocketMC</th>
-                                        <th style="padding: 10px; color: #a1a1aa;">Pterodactyl</th>
-                                        <th style="padding: 10px; color: #a1a1aa;">Crafty Controller</th>
-                                        <th style="padding: 10px; color: #a1a1aa;">MCSManager</th>
-                                        <th style="padding: 10px; color: #a1a1aa;">Minehut</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr style="border-bottom: 1px solid #27272a;">
-                                        <td style="padding: 10px; font-weight: 600;">Pricing / License</td>
-                                        <td style="padding: 10px; color: #ffffff;">100% Free, MIT Open Source</td>
-                                        <td style="padding: 10px; color: #a1a1aa;">Free, Complex Setup</td>
-                                        <td style="padding: 10px; color: #a1a1aa;">Free, GPLv3</td>
-                                        <td style="padding: 10px; color: #a1a1aa;">Free, Apache 2.0</td>
-                                        <td style="padding: 10px; color: #a1a1aa;">Freemium, Subscriptions</td>
-                                    </tr>
-                                    <tr style="border-bottom: 1px solid #27272a;">
-                                        <td style="padding: 10px; font-weight: 600;">Port Forwarding Setup</td>
-                                        <td style="padding: 10px; color: #ffffff;">Zero Config (Built-in Playit)</td>
-                                        <td style="padding: 10px; color: #a1a1aa;">Manual / Static IP</td>
-                                        <td style="padding: 10px; color: #a1a1aa;">Manual Router Config</td>
-                                        <td style="padding: 10px; color: #a1a1aa;">Manual Router Config</td>
-                                        <td style="padding: 10px; color: #a1a1aa;">Hosted by Minehut</td>
-                                    </tr>
-                                    <tr style="border-bottom: 1px solid #27272a;">
-                                        <td style="padding: 10px; font-weight: 600;">Java Auto-Management</td>
-                                        <td style="padding: 10px; color: #ffffff;">Yes (Adoptium 8/11/17/21/25)</td>
-                                        <td style="padding: 10px; color: #a1a1aa;">Docker Containers</td>
-                                        <td style="padding: 10px; color: #a1a1aa;">Manual System Installs</td>
-                                        <td style="padding: 10px; color: #a1a1aa;">Manual System Installs</td>
-                                        <td style="padding: 10px; color: #a1a1aa;">Fixed Container Runtimes</td>
-                                    </tr>
-                                    <tr style="border-bottom: 1px solid #27272a;">
-                                        <td style="padding: 10px; font-weight: 600;">Remote Control</td>
-                                        <td style="padding: 10px; color: #ffffff;">Built-in Web + QR Pairing + Discord</td>
-                                        <td style="padding: 10px; color: #a1a1aa;">Web Panel (Linux VPS)</td>
-                                        <td style="padding: 10px; color: #a1a1aa;">Web Panel (Localhost)</td>
-                                        <td style="padding: 10px; color: #a1a1aa;">Web Panel (Node daemon)</td>
-                                        <td style="padding: 10px; color: #a1a1aa;">Web Panel (Minehut)</td>
-                                    </tr>
-                                    <tr style="border-bottom: 1px solid #27272a;">
-                                        <td style="padding: 10px; font-weight: 600;">Integrated Marketplaces</td>
-                                        <td style="padding: 10px; color: #ffffff;">Modrinth + CurseForge + BDS</td>
-                                        <td style="padding: 10px; color: #a1a1aa;">None (FTP / File Upload)</td>
-                                        <td style="padding: 10px; color: #a1a1aa;">CurseForge Only</td>
-                                        <td style="padding: 10px; color: #a1a1aa;">None (File Manager)</td>
-                                        <td style="padding: 10px; color: #a1a1aa;">Minehut Addons</td>
-                                    </tr>
-                                    <tr style="border-bottom: 1px solid #27272a;">
-                                        <td style="padding: 10px; font-weight: 600;">AI Summaries &amp; Models</td>
-                                        <td style="padding: 10px; color: #ffffff;">Built-in Ollama + Cloud (Gemini 3.x, OpenAI, Claude)</td>
-                                        <td style="padding: 10px; color: #a1a1aa;">None</td>
-                                        <td style="padding: 10px; color: #a1a1aa;">None</td>
-                                        <td style="padding: 10px; color: #a1a1aa;">None</td>
-                                        <td style="padding: 10px; color: #a1a1aa;">None</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <p style="margin-top: 16px; font-size: 13px; color: #a1a1aa;">Engineered for high reliability with 980+ automated tests across Domain, Application, Infrastructure, RemoteControl, and Desktop layers.</p>
-                        </div>
-                    </section>
-
-                    <section id="faq" style="margin-bottom: 48px;">
-                        <h2 style="font-size: 24px; font-weight: 700; color: #ffffff; margin-bottom: 16px; border-bottom: 1px solid #27272a; padding-bottom: 8px;">Frequently Asked Questions</h2>
-                        <dl style="font-size: 14px;">
-                            <dt style="font-weight: 700; color: #ffffff; margin-top: 16px;">How do my friends join the server, and how can I manage it remotely?</dt>
-                            <dd style="color: #a1a1aa; margin-left: 0; margin-top: 4px;">PocketMC supports remote access for both gaming and administration. For players joining Minecraft, use the built-in Playit.gg tunnel agent, routing local ports to public shareable addresses without router configuration. For remote administration, enable the Remote Control Dashboard to access a secure, password-protected web panel accessible over LAN, Playit HTTPS, or Cloudflare Quick Tunnels.</dd>
-
-                            <dt style="font-weight: 700; color: #ffffff; margin-top: 16px;">Does PocketMC require Windows administrator privileges?</dt>
-                            <dd style="color: #a1a1aa; margin-left: 0; margin-top: 4px;">No. PocketMC runs entirely in user-space and installs per-user. It downloads Adoptium JRE runtimes locally and maps isolated instance directories without requiring administrative elevation or polluting your Windows system environment variables.</dd>
-
-                            <dt style="font-weight: 700; color: #ffffff; margin-top: 16px;">Do I need to install Java or PHP on my computer beforehand?</dt>
-                            <dd style="color: #a1a1aa; margin-left: 0; margin-top: 4px;">No. PocketMC manages all runtimes locally. It automatically provisions the correct Adoptium Java version (8, 11, 17, 21, or 25) based on your Minecraft server type and version. For Bedrock PocketMine-MP servers, it installs an app-local, optimized PHP 8.2 runtime automatically.</dd>
-
-                            <dt style="font-weight: 700; color: #ffffff; margin-top: 16px;">How does Playit.gg tunneling work? Do I need to configure port forwarding?</dt>
-                            <dd style="color: #a1a1aa; margin-left: 0; margin-top: 4px;">Zero router configuration is required. PocketMC features an integrated Playit.gg agent setup wizard. Once paired, it automatically provisions background agent processes, maps local ports (Java, Bedrock, Geyser, PocketMine, and Simple Voice Chat), and creates public addresses for your players.</dd>
-
-                            <dt style="font-weight: 700; color: #ffffff; margin-top: 16px;">Can Bedrock (console/mobile) players join a Java server managed by PocketMC?</dt>
-                            <dd style="color: #a1a1aa; margin-left: 0; margin-top: 4px;">Yes. PocketMC supports automatic GeyserMC and Floodgate setup during server creation for supported Java server loaders. It also scans your mod/plugin folders to verify cross-play status and displays active cross-play indicators on your dashboard.</dd>
-
-                            <dt style="font-weight: 700; color: #ffffff; margin-top: 16px;">Where are my server files stored and how secure are the backups?</dt>
-                            <dd style="color: #a1a1aa; margin-left: 0; margin-top: 4px;">All server files are stored 100% locally on your machine in the root folder you select. PocketMC's built-in backup engine locks active servers using RCON save-holding before copying, skips lock files like session.lock to avoid conflicts, and offers secure, OAuth-based replication directly to Google Drive, Dropbox, and OneDrive.</dd>
-
-                            <dt style="font-weight: 700; color: #ffffff; margin-top: 16px;">Can I import existing worlds or custom Bedrock add-ons?</dt>
-                            <dd style="color: #a1a1aa; margin-left: 0; margin-top: 4px;">Yes. You can import existing world folders directly, place custom JAR files, or ingest Bedrock .mcpack, .mcaddon, and world .zip files. PocketMC automatically parses manifests, maps dependency requirements, and registers packs.</dd>
-
-                            <dt style="font-weight: 700; color: #ffffff; margin-top: 16px;">Are my server logs shared with third-party AI systems?</dt>
-                            <dd style="color: #a1a1aa; margin-left: 0; margin-top: 4px;">Only if you explicitly configure an AI provider and request a log summary. PocketMC pre-processes and sanitizes all logs locally (automatically scrubbing IP addresses, emails, and personal info) before sending them to your provider of choice (Google Gemini, OpenAI, Claude, Mistral, Groq, or local Ollama).</dd>
-
-                            <dt style="font-weight: 700; color: #ffffff; margin-top: 16px;">Will my server stay online if my Windows PC goes to sleep?</dt>
-                            <dd style="color: #a1a1aa; margin-left: 0; margin-top: 4px;">PocketMC includes native Windows power integration that automatically prevents your PC from entering sleep mode while any Minecraft server instance is actively running. Once all servers are stopped, standard Windows power saving behaviors resume.</dd>
-                        </dl>
-                    </section>
-                </main>
-
-                <footer style="border-top: 1px solid #27272a; padding-top: 24px; margin-top: 48px; font-size: 12px; color: #71717a; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
-                    <div>
-                        <p style="margin: 0 0 4px 0;">&copy; PocketMC Contributors. Released under the MIT License.</p>
-                        <p style="margin: 0;">Maintained by <a href="https://github.com/sizwinz" style="color: #a1a1aa;">sizwinz</a> and <a href="https://github.com/divyviradiya2" style="color: #a1a1aa;">divyviradiya2</a>.</p>
-                    </div>
-                    <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-                        <a href="https://pocketmc.github.io/about/" style="color: #a1a1aa; text-decoration: none;">About</a>
-                        <a href="https://pocketmc.github.io/contact/" style="color: #a1a1aa; text-decoration: none;">Contact</a>
-                        <a href="https://pocketmc.github.io/privacy/" style="color: #a1a1aa; text-decoration: none;">Privacy &amp; Security</a>
-                        <a href="https://pocketmc.github.io/terms/" style="color: #a1a1aa; text-decoration: none;">Terms of Service</a>
-                        <a href="https://pocketmc.github.io/docs/" style="color: #a1a1aa; text-decoration: none;">Developer Docs</a>
-                        <a href="https://pocketmc.github.io/llms.txt" style="color: #a1a1aa; text-decoration: none;">llms.txt</a>
-                        <a href="https://pocketmc.github.io/.well-known/mcp.json" style="color: #a1a1aa; text-decoration: none;">MCP Manifest</a>
-                        <a href="https://github.com/PocketMC" style="color: #a1a1aa; text-decoration: none;">GitHub</a>
-                        <a href="https://discord.gg/mWdMr8Mc2m" style="color: #a1a1aa; text-decoration: none;">Discord</a>
-                    </div>
-                </footer>
-            </div>
-        </div>
-
-        <noscript>
-            <div style="background-color: #18181b; color: #ffffff; padding: 16px; text-align: center; border-bottom: 1px solid #27272a; font-family: sans-serif; font-size: 14px;">
-                PocketMC Showcase is fully viewable without JavaScript. For interactive features, screenshot lightboxes, and dynamic animations, please enable JavaScript.
-            </div>
-        </noscript>
-
-
-    </body>
+					Promise.all([
+						import("./_app/immutable/entry/start.Ky_BwO1X.js"),
+						import("./_app/immutable/entry/app.Y3TEo8Fc.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 3],
+							data: [null,null],
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+	</body>
 </html>
