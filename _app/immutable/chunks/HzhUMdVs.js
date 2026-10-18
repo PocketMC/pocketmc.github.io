@@ -1,1 +1,0 @@
-const t="https://github.com/PocketMC/pocket-mc-windows",c="https://discord.gg/mWdMr8Mc2m",o="https://www.reddit.com/r/PocketMC/",s="https://www.youtube.com/@OfficialPocketMC",e="https://www.buymeacoffee.com/sahaj33",a="https://github.com/PocketMC/pocket-mc-website",m="contactdslabs@gmail.com";export{o as a,e as b,c as d,m as e,t as r,a as w,s as y};
