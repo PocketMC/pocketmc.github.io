@@ -1,0 +1,1 @@
+import{r as e}from"../chunks/IKQcdn9t.js";function o(){e(308,"/docs/ai")}const t=Object.freeze(Object.defineProperty({__proto__:null,load:o},Symbol.toStringTag,{value:"Module"}));export{t as universal};

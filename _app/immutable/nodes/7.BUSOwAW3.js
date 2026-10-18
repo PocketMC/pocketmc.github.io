@@ -1,1 +1,0 @@
-import{R as t}from"../chunks/-UyI9lYi.js";import"../chunks/B0XwC4Ot.js";import{p as r}from"../chunks/1-PMGxUo.js";function i(e,o){throw new t(e,o.toString())}function n(){i(307,`/docs/${r[0].slug}`)}const l=Object.freeze(Object.defineProperty({__proto__:null,load:n},Symbol.toStringTag,{value:"Module"}));export{l as universal};
