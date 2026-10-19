@@ -1,0 +1,1 @@
+import{v as s,w as n}from"./CTAZ8fVc.js";function v(o,i,r,f,a){var d=()=>{f(r[o])};r.addEventListener(i,d),a?s(()=>{r[o]=a()}):d(),(r===document.body||r===window||r===document)&&n(()=>{r.removeEventListener(i,d)})}export{v as b};
