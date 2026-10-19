@@ -7,7 +7,7 @@
   "releasesUrl": "https://github.com/PocketMC/pocket-mc-windows/releases",
   "downloadUrl": "https://github.com/PocketMC/pocket-mc-windows/releases/download/v1.9.10/PocketMC-Setup.exe",
   "latestReleaseUrl": "https://github.com/PocketMC/pocket-mc-windows/releases/latest",
-  "inspectedAt": "2026-10-19T05:57:18.948Z",
+  "inspectedAt": "2026-10-19T05:59:44.613Z",
   "name": "pocket-mc-windows",
   "full_name": "PocketMC/pocket-mc-windows",
   "description": "Windows desktop app to locally host and manage Minecraft Java and Bedrock Edition servers without any mess.",
