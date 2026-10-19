@@ -4,10 +4,24 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="google-site-verification" content="xo-fJdA8-y3mHNGwgR5dmHEUCVLoCD04pnYCqhpPVao" />
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-7QWQVJQ1GL"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-7QWQVJQ1GL');
+		</script>
+		<script>
+			if (window.location.hostname === 'www.pocketmc.github.io') {
+				window.location.replace('https://pocketmc.github.io' + window.location.pathname + window.location.search + window.location.hash);
+			}
+		</script>
 		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="apple-touch-icon" href="/logo.webp" />
+		<link rel="preload" as="image" href="/logo.webp" type="image/webp" fetchpriority="high" />
 		<meta name="theme-color" content="#121212" />
 		<meta name="referrer" content="strict-origin-when-cross-origin" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,28 +34,36 @@
 		<link
 			rel="stylesheet"
 			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+			media="print"
+			onload="this.media='all'"
 		/>
+		<noscript>
+			<link
+				rel="stylesheet"
+				href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+			/>
+		</noscript>
 		<script>!function(){var e=document.documentElement;e.classList.add("js");try{var t=localStorage.getItem("theme");"light"!==t&&"dark"!==t||(e.dataset.theme=t)}catch(e){}try{var a=performance.getEntriesByType("navigation")[0];location.hash&&(!a||"reload"===a.type)&&history.replaceState(history.state,"",location.pathname+location.search)}catch(e){}addEventListener("beforeunload",function(){return scrollTo(0,0)})}();</script>
-		<link href="/_app/immutable/entry/start.CveDuoZf.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/wfqozXsR.js" rel="modulepreload">
+		<link href="/_app/immutable/entry/start.C6Y6MlYV.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/CZ0vqs-V.js" rel="modulepreload">
 		<link href="/_app/immutable/chunks/_Ff7CXW1.js" rel="modulepreload">
 		<link href="/_app/immutable/chunks/CTAZ8fVc.js" rel="modulepreload">
 		<link href="/_app/immutable/chunks/B2iXaGoM.js" rel="modulepreload">
 		<link href="/_app/immutable/chunks/B1wbNM4c.js" rel="modulepreload">
 		<link href="/_app/immutable/chunks/-UyI9lYi.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/DkAL307A.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/VgiFplQE.js" rel="modulepreload">
 		<link href="/_app/immutable/chunks/B0XwC4Ot.js" rel="modulepreload">
-		<link href="/_app/immutable/entry/app.CCZm9SP7.js" rel="modulepreload">
+		<link href="/_app/immutable/entry/app.D5UnURsx.js" rel="modulepreload">
 		<link href="/_app/immutable/chunks/Bzak7iHL.js" rel="modulepreload">
 		<link href="/_app/immutable/chunks/8izDiinw.js" rel="modulepreload">
 		<link href="/_app/immutable/chunks/uF4sMdsB.js" rel="modulepreload">
 		<link href="/_app/immutable/chunks/ujy63yNa.js" rel="modulepreload">
-		<link href="/_app/immutable/nodes/0.BMZlrAGF.js" rel="modulepreload">
+		<link href="/_app/immutable/nodes/0.Biawa2Ci.js" rel="modulepreload">
 		<link href="/_app/immutable/chunks/NfvNgoLu.js" rel="modulepreload">
 		<link href="/_app/immutable/chunks/BEWaccFk.js" rel="modulepreload">
 		<link href="/_app/immutable/chunks/CYt70R4b.js" rel="modulepreload">
 		<link href="/_app/immutable/chunks/DV90vzVP.js" rel="modulepreload">
-		<link href="/_app/immutable/chunks/C39RhpDZ.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/CC8YfeZw.js" rel="modulepreload">
 		<link href="/_app/immutable/chunks/Qo5fOJMU.js" rel="modulepreload">
 		<link href="/_app/immutable/chunks/ahOnYfSX.js" rel="modulepreload">
 		<link href="/_app/immutable/chunks/DbcMisAl.js" rel="modulepreload">
@@ -58,15 +80,15 @@
 		<div style="display: contents">
 			<script>
 				{
-					__sveltekit_izexy4 = {
+					__sveltekit_1xs6xvi = {
 						base: ""
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("/_app/immutable/entry/start.CveDuoZf.js"),
-						import("/_app/immutable/entry/app.CCZm9SP7.js")
+						import("/_app/immutable/entry/start.C6Y6MlYV.js"),
+						import("/_app/immutable/entry/app.D5UnURsx.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element);
 					});
